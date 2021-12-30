@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using MinhMVC;
 using uPLibrary.Networking.M2Mqtt;
-
+using Xamarin.Essentials;
 
 namespace XamarinUser.Controllers
 {
@@ -44,9 +44,9 @@ namespace XamarinUser.Controllers
                     string text = Encoding.UTF8.GetString(e.Message);
                     Debug.WriteLine(text);
                     var obj = Newtonsoft.Json.Linq.JObject.Parse(text);
-                    var url = (string) obj.GetValue("url");
-                    var message = (Newtonsoft.Json.Linq.JObject) obj.GetValue("message");
-                    Engine.Execute(url, message);
+                    var url = (string)obj.GetValue("url");
+                    var message = (Newtonsoft.Json.Linq.JObject)obj.GetValue("message");
+                    MainThread.BeginInvokeOnMainThread(() => Engine.Execute(url, message));
                 };
             }
         }

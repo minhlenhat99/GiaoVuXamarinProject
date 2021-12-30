@@ -26,19 +26,30 @@ namespace XamarinUser.Views.Account
         protected override void RenderCore()
         {
             this.Title = "Login";
-            Entry entryID = new Entry { Placeholder = "Student ID" };
+            Entry entryID = new Entry { Placeholder = "Username" };
             MainContent.Children.Add( entryID );
             Entry entryPassword = new Entry { Placeholder = "Password" };
+            entryPassword.IsPassword = true;
             MainContent.Children.Add(entryPassword);
             Button btnLogin = new Button { Text = "Login" };
             btnLogin.Clicked += (s, e) =>
             {
-                Engine.Execute("Account/Publish", "Account/Login",
-                new Models.Account
+                string id = entryID.Text;
+                string pass = entryPassword.Text;
+                if (id == "" || pass == "" || id == null || pass == null)
                 {
-                    StudentId = entryID.Text,
-                    Password = entryPassword.Text
-                });
+                    DisplayAlert("Error", "Entry text is empty", "OK");
+                }
+                else
+                {
+                    Engine.Execute("Account/Publish", "Account/Login",
+                    new Models.Account
+                    {
+                        StudentId = id,
+                        Password = App.MD5Hash(pass)
+                    });
+                }
+                
             };
             MainContent.Children.Add(btnLogin);
             Button btnCreateNewAcc = new Button { Text = "Create New Account" };
@@ -65,15 +76,26 @@ namespace XamarinUser.Views.Account
             Entry entryID = new Entry { Placeholder = "Student ID" };
             MainContent.Children.Add(entryID);
             Entry entryPassword = new Entry { Placeholder = "New Password" };
+            entryPassword.IsPassword = true;
             MainContent.Children.Add(entryPassword);
             Button btnCreate = new Button { Text = "Create" };
             btnCreate.Clicked += (s, e) => {
-                Engine.Execute("Account/Pubish", "Account/CreateAcc",
+                string id = entryID.Text;
+                string pass = entryPassword.Text;
+                if (id == "" || pass == "" || id == null || pass == null)
+                {
+                    DisplayAlert("Error", "Entry text is empty", "OK");
+                }
+                else
+                {
+                    Engine.Execute("Account/Publish", "Account/CreateAcc",
                     new Models.Account
                     {
-                        StudentId = entryID.Text,
-                        Password = entryPassword.Text
+                        StudentId = id,
+                        Password = App.MD5Hash(pass)
                     });
+                }
+               
             };
             MainContent.Children.Add(btnCreate);
         }

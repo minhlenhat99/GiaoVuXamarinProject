@@ -5,24 +5,27 @@ using System.Text;
 namespace XamarinUser.Controllers
 {
     using Models;
+    using System.Security.Cryptography;
+
     class AccountController : BaseController
     {
         public object Login()
         {
             return View();
         }
-        public void Login(Newtonsoft.Json.Linq.JObject account)
+        public object Login(Newtonsoft.Json.Linq.JObject account)
         {
-            if ((bool)account.GetValue("IsExisted"))
+            if (!(bool)account.GetValue("IsExisted"))
             {
-
+                RedirectToAction("Alert", "Error", "Couldn't find your account.");
             }
             else
             {
-                RedirectToAction("AlertError", "Couldn't find your account");
-            } 
+                RedirectToAction("Alert", "Success", "Ok. You logged in");
+            }
+            return null;
         }
-        public object AlertError(string message)
+        public object Alert(string title, string message)
         {
             return View();
         }
@@ -30,5 +33,14 @@ namespace XamarinUser.Controllers
         {
             return View();
         }
+        public object CreateAcc(Newtonsoft.Json.Linq.JObject account)
+        {
+            if ((bool)account.GetValue("IsExisted"))
+            {
+                RedirectToAction("Alert", "Success", "The account was created successfully.");
+            }
+            return null;
+        }
+        
     }
 }
