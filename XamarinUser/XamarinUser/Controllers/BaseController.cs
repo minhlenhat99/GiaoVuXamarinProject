@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using MinhMVC;
 using uPLibrary.Networking.M2Mqtt;
@@ -30,27 +31,21 @@ namespace XamarinUser.Controllers
                 _client = new MqttClient(_hostIp);
                 string clientId = Guid.NewGuid().ToString();
                 // Connect to mqtt cloud
-                //int count = 5;
                 while (true)
                 {
                     _client.Connect(clientId);
                     if (_client.IsConnected) break;
-                    //System.Threading.Thread.Sleep(1000);
-                    //if (--count == 0)
-                    //{
-
-                    //}
                 }
                 Subcribe();
 
                 _client.MqttMsgPublishReceived += (s, e) =>
                 {
-                    Console.Write(e.Topic + ": ");
+                    Debug.Write(e.Topic + ": ");
                     string text = Encoding.UTF8.GetString(e.Message);
-                    Console.WriteLine(text);
+                    Debug.WriteLine(text);
                     var obj = Newtonsoft.Json.Linq.JObject.Parse(text);
-                    var url = (string)obj.GetValue("url");
-                    var message = (string)obj.GetValue("message");
+                    var url = (string) obj.GetValue("url");
+                    var message = (Newtonsoft.Json.Linq.JObject) obj.GetValue("message");
                     Engine.Execute(url, message);
                 };
             }

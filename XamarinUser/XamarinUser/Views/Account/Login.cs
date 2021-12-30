@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using MinhMVC;
+using System.Diagnostics;
 
 namespace XamarinUser.Views.Account
 {
@@ -76,7 +77,6 @@ namespace XamarinUser.Views.Account
             };
             MainContent.Children.Add(btnCreate);
         }
-
         protected override void SetMainPage(object page)
         {
             Login.PageContainter.PushAsync(this);

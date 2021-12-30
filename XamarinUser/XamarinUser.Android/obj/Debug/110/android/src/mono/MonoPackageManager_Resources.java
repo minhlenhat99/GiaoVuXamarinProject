@@ -4,8 +4,8 @@ public class MonoPackageManager_Resources {
 		/* We need to ensure that "XamarinUser.Android.dll" comes first in this list. */
 		"XamarinUser.Android.dll",
 		"MinhMVC.dll",
-		"M2Mqtt.Net.dll",
 		"Newtonsoft.Json.dll",
+		"M2Mqtt.Net.dll",
 		"FormsViewGroup.dll",
 		"Xamarin.AndroidX.Activity.dll",
 		"Xamarin.AndroidX.Annotation.dll",

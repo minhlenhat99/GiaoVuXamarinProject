@@ -46,7 +46,7 @@ namespace Listener.Controllers
                     var obj = Newtonsoft.Json.Linq.JObject.Parse(text);
                     var cid = (string)obj.GetValue("cid");
                     var url = (string)obj.GetValue("url");
-                    var message = (object)obj.GetValue("message");
+                    var message = (object) obj.GetValue("message");
                     // Tam thoi
                     Engine.Execute(url, message, cid);
                     //Thread th = new Thread(() => Engine.Execute(url, message, cid));
