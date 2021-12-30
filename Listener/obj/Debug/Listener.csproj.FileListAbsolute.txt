@@ -1,0 +1,17 @@
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\Listener.exe.config
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\Listener.exe
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\Listener.pdb
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\MinhMVC.dll
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\VstJson.dll
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\Newtonsoft.Json.dll
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\MinhMVC.pdb
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\VstJson.pdb
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\obj\Debug\Listener.csproj.AssemblyReference.cache
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\obj\Debug\Listener.csproj.CoreCompileInputs.cache
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\obj\Debug\Listener.csproj.CopyComplete
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\obj\Debug\Listener.exe
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\obj\Debug\Listener.pdb
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\obj\Debug\Listener.exe.config
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\M2Mqtt.Net.dll
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\M2Mqtt.Net.pdb
+D:\TaiLieuCacNam\20211\Lap_trinh_ung_dung_di_dong\BTL\Xamarin2\BTL\Listener\bin\Debug\Newtonsoft.Json.xml
