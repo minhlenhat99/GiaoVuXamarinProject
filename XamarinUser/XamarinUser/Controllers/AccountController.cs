@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MinhMVC;
 
 namespace XamarinUser.Controllers
 {
@@ -18,18 +19,16 @@ namespace XamarinUser.Controllers
             string mess = message.ToObject<string>();
             if (mess == null)
             {
-                RedirectToAction("Alert", "Error", "Couldn't find your account.");
+                Engine.Execute("Base/Alert", "Error", "Couldn't find your account.");
             }
             else
             {
-                RedirectToAction("Alert", "Success", "Ok. You logged in");
+                Token = mess;
+                Engine.Execute("User/Test");
             }
             return null;
         }
-        public object Alert(string title, string message)
-        {
-            return View();
-        }
+        
         public object CreateAcc()
         {
             return View();
@@ -39,7 +38,7 @@ namespace XamarinUser.Controllers
             var mess = message.ToObject<bool>();
             if (mess)
             {
-                RedirectToAction("Alert", "Success", "The account was created successfully.");
+                Engine.Execute("Base/Alert", "Success", "The account was created successfully.");
             }
             return null;
         }

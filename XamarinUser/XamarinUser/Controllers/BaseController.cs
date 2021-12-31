@@ -47,7 +47,8 @@ namespace XamarinUser.Controllers
                     var url = (string)obj.GetValue("url");
                     var message = obj.GetValue("message");
                     MainThread.BeginInvokeOnMainThread(() => {
-                        Engine.Execute(url, message);
+                        if(message.ToObject<object>() == null) Engine.Execute(url);
+                        else Engine.Execute(url, message);
                     }
                     );
                 };
@@ -66,6 +67,10 @@ namespace XamarinUser.Controllers
             var msg = Encoding.UTF8.GetBytes(s);
             _client.Publish(_topic, msg);
             return null;
+        }
+        public object Alert(string title, string message)
+        {
+            return View();
         }
     }
 }

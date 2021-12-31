@@ -10,6 +10,5 @@ namespace Listener.Models
     {
         public string StudentId { get; set; }
         public string Password { get; set; }
-        //public bool IsExisted { get; set; }
     }
 }

@@ -46,12 +46,8 @@ namespace Listener.Controllers
                     var obj = Newtonsoft.Json.Linq.JObject.Parse(text);
                     var cid = (string)obj.GetValue("cid");
                     var url = (string)obj.GetValue("url");
-                    var message = (object) obj.GetValue("message");
-                    // Tam thoi
+                    var message = obj.GetValue("message");
                     Engine.Execute(url, message, cid);
-                    //Thread th = new Thread(() => Engine.Execute(url, message, cid));
-                    //th.Start();
-                    //ExecutionThreads.Enqueue(th);
                 };
             }
         }
@@ -70,6 +66,13 @@ namespace Listener.Controllers
             //ExecutionThreads.Dequeue().Abort();
             return null;
         }
-        
+
+        public object Publish(string sUrl, string cid)
+        {
+            Publish(sUrl, null, cid);
+            return null;
+        }
+
+
     }
 }

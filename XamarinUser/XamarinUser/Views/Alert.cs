@@ -1,11 +1,10 @@
-﻿using System;
+﻿using MinhMVC;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using MinhMVC;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace XamarinUser.Views.Account
+namespace XamarinUser.Views
 {
     class Alert : IView
     {

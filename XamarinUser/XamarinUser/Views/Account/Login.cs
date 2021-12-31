@@ -113,7 +113,7 @@ namespace XamarinUser.Views.Account
                 Children =
                 {
                      cbxViewPasswd,
-                     new Label {Text = "View Password", VerticalTextAlignment = TextAlignment.Center, TextColor = Color.Black}
+                     new Label {Text = "Show Password", VerticalTextAlignment = TextAlignment.Center, TextColor = Color.Black}
                 }
             };
             MainContent.Children.Add(viewPasswd);

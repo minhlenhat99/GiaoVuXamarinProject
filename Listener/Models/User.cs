@@ -8,7 +8,13 @@ namespace Listener.Models
 {
     class User
     {
-        public string StudentId { get; set; }
+        public Account Account { get; set; }
         public string Token { get; set; }
+        public DateTime loggedInTime { get; set; }
+    }
+
+    class UsersData : List<User>
+    {
+       
     }
 }

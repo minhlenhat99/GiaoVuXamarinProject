@@ -33,7 +33,14 @@ namespace Listener.Controllers
             var acc = db.Find(a => a.StudentId == (string) account.GetValue("StudentId") && a.Password == (string)account.GetValue("Password"));
             if (acc != null)
             {
-                token = Program.MD5Hash("Test");
+                var now = DateTime.Now;
+                token = Program.MD5Hash(acc.StudentId + " " + now);
+                Engine.Execute("User/CreateUser", new User
+                {
+                    Account = acc,
+                    loggedInTime = now,
+                    Token = token
+                });
             }
             RedirectToAction("Publish", "Account/Login", token, cid);
             return null;
