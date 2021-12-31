@@ -7,7 +7,6 @@ using System.Diagnostics;
 
 namespace XamarinUser.Views.Account
 {
-    //class Login : BaseView<List<Models.Account>, StackLayout>
     class Login : BaseView<StackLayout>
     {
         static NavigationPage _pageContainer;
@@ -27,10 +26,30 @@ namespace XamarinUser.Views.Account
         {
             this.Title = "Login";
             Entry entryID = new Entry { Placeholder = "Username" };
-            MainContent.Children.Add( entryID );
+            MainContent.Children.Add(entryID);
             Entry entryPassword = new Entry { Placeholder = "Password" };
             entryPassword.IsPassword = true;
             MainContent.Children.Add(entryPassword);
+            CheckBox cbxViewPasswd = new CheckBox()
+            {
+                IsChecked = false,
+                Color = Color.Black
+            };
+            cbxViewPasswd.CheckedChanged += (s, e) =>
+            {
+                if (cbxViewPasswd.IsChecked) entryPassword.IsPassword = false;
+                else entryPassword.IsPassword = true;
+            };
+            StackLayout viewPasswd = new StackLayout()
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children =
+                {
+                     cbxViewPasswd,
+                     new Label {Text = "View Password", VerticalTextAlignment = TextAlignment.Center, TextColor = Color.Black}
+                }
+            };
+            MainContent.Children.Add(viewPasswd);
             Button btnLogin = new Button { Text = "Login" };
             btnLogin.Clicked += (s, e) =>
             {
@@ -78,6 +97,26 @@ namespace XamarinUser.Views.Account
             Entry entryPassword = new Entry { Placeholder = "New Password" };
             entryPassword.IsPassword = true;
             MainContent.Children.Add(entryPassword);
+            CheckBox cbxViewPasswd = new CheckBox()
+            {
+                IsChecked = false,
+                Color = Color.Black
+            };
+            cbxViewPasswd.CheckedChanged += (s, e) =>
+            {
+                if (cbxViewPasswd.IsChecked) entryPassword.IsPassword = false;
+                else entryPassword.IsPassword = true;
+            };
+            StackLayout viewPasswd = new StackLayout()
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children =
+                {
+                     cbxViewPasswd,
+                     new Label {Text = "View Password", VerticalTextAlignment = TextAlignment.Center, TextColor = Color.Black}
+                }
+            };
+            MainContent.Children.Add(viewPasswd);
             Button btnCreate = new Button { Text = "Create" };
             btnCreate.Clicked += (s, e) => {
                 string id = entryID.Text;

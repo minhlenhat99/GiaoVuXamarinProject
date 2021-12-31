@@ -45,8 +45,11 @@ namespace XamarinUser.Controllers
                     Debug.WriteLine(text);
                     var obj = Newtonsoft.Json.Linq.JObject.Parse(text);
                     var url = (string)obj.GetValue("url");
-                    var message = (Newtonsoft.Json.Linq.JObject)obj.GetValue("message");
-                    MainThread.BeginInvokeOnMainThread(() => Engine.Execute(url, message));
+                    var message = obj.GetValue("message");
+                    MainThread.BeginInvokeOnMainThread(() => {
+                        Engine.Execute(url, message);
+                    }
+                    );
                 };
             }
         }

@@ -13,9 +13,10 @@ namespace XamarinUser.Controllers
         {
             return View();
         }
-        public object Login(Newtonsoft.Json.Linq.JObject account)
+        public object Login(Newtonsoft.Json.Linq.JToken message)
         {
-            if (!(bool)account.GetValue("IsExisted"))
+            string mess = message.ToObject<string>();
+            if (mess == null)
             {
                 RedirectToAction("Alert", "Error", "Couldn't find your account.");
             }
@@ -33,9 +34,10 @@ namespace XamarinUser.Controllers
         {
             return View();
         }
-        public object CreateAcc(Newtonsoft.Json.Linq.JObject account)
+        public object CreateAcc(Newtonsoft.Json.Linq.JToken message)
         {
-            if ((bool)account.GetValue("IsExisted"))
+            var mess = message.ToObject<bool>();
+            if (mess)
             {
                 RedirectToAction("Alert", "Success", "The account was created successfully.");
             }

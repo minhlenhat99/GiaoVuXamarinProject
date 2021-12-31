@@ -28,17 +28,19 @@ namespace Listener.Controllers
         }
         public object Login(Newtonsoft.Json.Linq.JObject account, string cid)
         {
+            string token = null;
             var db = AccountDb.GetCollection<Account>().ToList<Account>();
             var acc = db.Find(a => a.StudentId == (string) account.GetValue("StudentId") && a.Password == (string)account.GetValue("Password"));
             if (acc != null)
             {
-                account["IsExisted"] = true;
+                token = Program.MD5Hash("Test");
             }
-            RedirectToAction("Publish", "Account/Login", account, cid);
+            RedirectToAction("Publish", "Account/Login", token, cid);
             return null;
         }
         public object CreateAcc(Newtonsoft.Json.Linq.JObject account, string cid)
         {
+            bool createSuccess = false;
             var db = AccountDb.GetCollection<Account>();
             db.Insert(new Account 
             {
@@ -46,21 +48,10 @@ namespace Listener.Controllers
                 Password = (string) account.GetValue("Password")
             });
             Debug.WriteLine(db.Count());
-            account["IsExisted"] = true;
-            RedirectToAction("Publish", "Account/CreateAcc", account, cid);
+            createSuccess = true;
+            RedirectToAction("Publish", "Account/CreateAcc", createSuccess, cid);
             return null;
         }
-        public static string MD5Hash(string input)
-        {
-            StringBuilder hash = new StringBuilder();
-            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
-
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                hash.Append(bytes[i].ToString("x2"));
-            }
-            return hash.ToString();
-        }
+        
     }
 }
