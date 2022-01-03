@@ -9,8 +9,9 @@ namespace XamarinUser.Views.User
     class BaseView<MView> : ContentPage, IView
         where MView : View, new()
     {
-        protected static NavigationPage _pageContainer;
+        protected static int? RoleId { get; set; }
 
+        protected static NavigationPage _pageContainer;
         public static NavigationPage PageContainter
         {
             get
@@ -22,12 +23,27 @@ namespace XamarinUser.Views.User
                 return _pageContainer;
             }
         }
-        protected static int RoleId { get; set; }
+        // FlyoutPage
+        protected static MainPage _mainPage;
+        public static MainPage MainPage
+        {
+            get
+            {
+                if(_mainPage == null)
+                {
+                    _mainPage = new MainPage(RoleId);
+                }
+                return _mainPage;
+            }
+        }
         protected MView MainContent { get; set; }
         //public MModel Model { get; set; }
         public void Render(ControllerContext context)
         {
-            RoleId = (int) context.Arguments[0];
+            if(RoleId == null)
+            {
+                RoleId = (int)context.Arguments[0];
+            }
             //Model = (MModel)context.Model;
             MainContent = new MView();
             this.Content = MainContent;
@@ -40,7 +56,9 @@ namespace XamarinUser.Views.User
         }
         protected virtual void SetMainPage(object page)
         {
-            App.Current.MainPage = (Xamarin.Forms.Page)page;
+            //App.Current.MainPage = (Xamarin.Forms.Page)page;
+            MainPage.Detail = (Page)page;
+            App.Current.MainPage = MainPage;
         }
     }
 }

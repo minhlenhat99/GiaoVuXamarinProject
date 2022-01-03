@@ -11,6 +11,10 @@ namespace XamarinUser.Controllers
         {
             return View();
         }
+        public object Test2(int roleId)
+        {
+            return View();
+        }
         public object Logout()
         {
             RedirectToAction("Publish", "User/Logout", Token);
@@ -22,10 +26,6 @@ namespace XamarinUser.Controllers
             if (logoutSuccess)
             {
                 Engine.Execute("Account/Login");
-            }
-            else
-            {
-                
             }
             return null;
         }

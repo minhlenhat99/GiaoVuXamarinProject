@@ -29,8 +29,8 @@ namespace XamarinUser
         protected override void OnStart()
         {
             Engine.Register(this);
-            //Engine.Execute("Home/Default");
-            Views.User.Test test = new Views.User.Test();
+            Engine.Execute("Home/Default");
+            //Views.User.Test test = new Views.User.Test();
         }
         
         protected override void OnSleep()
