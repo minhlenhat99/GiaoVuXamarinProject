@@ -11,6 +11,15 @@ namespace Listener.Controllers
     {
         public object Default()
         {
+            //Engine.Execute("Account/AddAdmin", new Models.Account
+            //{
+            //    Id = "0",
+            //    Password = Program.MD5Hash("0"),
+            //    accRole = new Models.Role
+            //    {
+            //        Id = 0
+            //    }
+            //});
             Connect();
             return null;
         }

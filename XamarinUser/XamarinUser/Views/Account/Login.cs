@@ -9,19 +9,6 @@ namespace XamarinUser.Views.Account
 {
     class Login : BaseView<StackLayout>
     {
-        static NavigationPage _pageContainer;
-        public static NavigationPage PageContainter
-        {
-            get
-            {
-                if (_pageContainer == null)
-                {
-                    _pageContainer = new NavigationPage();
-                }
-                return _pageContainer;
-            }
-        }
-
         protected override void RenderCore()
         {
             this.Title = "Login";
@@ -64,7 +51,7 @@ namespace XamarinUser.Views.Account
                     Engine.Execute("Account/Publish", "Account/Login",
                     new Models.Account
                     {
-                        StudentId = id,
+                        Id = id,
                         Password = App.MD5Hash(pass)
                     });
                 }
@@ -130,7 +117,7 @@ namespace XamarinUser.Views.Account
                     Engine.Execute("Account/Publish", "Account/CreateAcc",
                     new Models.Account
                     {
-                        StudentId = id,
+                        Id = id,
                         Password = App.MD5Hash(pass)
                     });
                 }

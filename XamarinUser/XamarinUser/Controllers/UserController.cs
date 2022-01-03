@@ -7,7 +7,7 @@ namespace XamarinUser.Controllers
 {
     class UserController : BaseController
     {
-        public object Test()
+        public object Test(int roleId)
         {
             return View();
         }

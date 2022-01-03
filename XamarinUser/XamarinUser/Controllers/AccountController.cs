@@ -14,17 +14,18 @@ namespace XamarinUser.Controllers
         {
             return View();
         }
-        public object Login(Newtonsoft.Json.Linq.JToken message)
+        public object Login(Newtonsoft.Json.Linq.JObject message)
         {
-            string mess = message.ToObject<string>();
-            if (mess == null)
+            var token = message.GetValue("Token").ToObject<string>();
+            if (token == null)
             {
                 Engine.Execute("Base/Alert", "Error", "Couldn't find your account.");
             }
             else
             {
-                Token = mess;
-                Engine.Execute("User/Test");
+                Token = token;
+                var roleId = message.GetValue("RoleId").ToObject<int>();
+                Engine.Execute("User/Test", roleId);
             }
             return null;
         }

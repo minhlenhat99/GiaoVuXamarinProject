@@ -8,7 +8,8 @@ namespace Listener.Models
 {
     public class Account
     {
-        public string StudentId { get; set; }
+        public string Id { get; set; }
         public string Password { get; set; }
+        public Role accRole { get; set; }
     }
 }

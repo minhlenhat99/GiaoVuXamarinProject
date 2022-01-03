@@ -8,20 +8,25 @@ namespace XamarinUser.Views.User
 {
     class Test : BaseView<StackLayout>
     {
-        static NavigationPage _pageContainer;
-        public static NavigationPage PageContainter
-        {
-            get
-            {
-                if (_pageContainer == null)
-                {
-                    _pageContainer = new NavigationPage();
-                }
-                return _pageContainer;
-            }
-        }
         protected override void RenderCore()
         {
+            string sayHello = "Xin chào ";
+            switch (RoleId)
+            {
+                case 0:
+                    sayHello += "quản trị viên";
+                    break;
+                case 1:
+                    sayHello += "sinh viên";
+                    break;
+            }
+            Label SayHello = new Label()
+            {
+                Text = sayHello,
+                HorizontalTextAlignment = TextAlignment.Center,
+                TextColor = Color.Black
+            };
+            MainContent.Children.Add(SayHello);
             Button btnLogout = new Button()
             {
                 Text = "Log out"
@@ -36,4 +41,6 @@ namespace XamarinUser.Views.User
             base.SetMainPage(PageContainter);
         }
     }
+
+
 }

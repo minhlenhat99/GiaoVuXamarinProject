@@ -9,6 +9,18 @@ namespace XamarinUser.Views.Account
     class BaseView<MView> : ContentPage, IView
         where MView : View, new()
     {
+        protected static NavigationPage _pageContainer;
+        public static NavigationPage PageContainter
+        {
+            get
+            {
+                if (_pageContainer == null)
+                {
+                    _pageContainer = new NavigationPage();
+                }
+                return _pageContainer;
+            }
+        }
         protected MView MainContent { get; set; }
         public void Render(ControllerContext context)
         {
