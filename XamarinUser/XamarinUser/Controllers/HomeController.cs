@@ -10,7 +10,7 @@ namespace XamarinUser.Controllers
         public object Default()
         {
             Connect();
-            if(Token == null)
+            if(User.Token == null)
             {
                 Engine.Execute("Account/Login");
                 return null;

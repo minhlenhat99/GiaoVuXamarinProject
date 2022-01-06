@@ -12,10 +12,14 @@ namespace XamarinUser.Views.User
         public ListView ListView { get; set; }
         public FlyoutMenuPage()
         {
-            // itemSource cho List item
-            var flyoutPageItems = new List<FlyoutPageItem>();
-            flyoutPageItems.Add(new FlyoutPageItem{ Title = "Test" });
-            flyoutPageItems.Add(new FlyoutPageItem{ Title = "Test2" });
+            var flyoutPageItems = new List<Models.FlyoutPageItem>();
+            flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Thông tin cá nhân" });
+            flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Thông tin liên hệ" });
+            flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Đổi mật khẩu" });
+            flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Quản lý đào tạo" });
+            flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Điểm rèn luyện" });
+            flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Điểm học tập" });
+            //flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Test" });
 
             // Tao content cho ListView
             ListView = new ListView
@@ -26,7 +30,7 @@ namespace XamarinUser.Views.User
                     var grid = new Grid { Padding = new Thickness(5, 10) };
                     grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30) });
 
-                    var label = new Label { VerticalOptions = LayoutOptions.FillAndExpand };
+                    var label = new Label { VerticalOptions = LayoutOptions.FillAndExpand, TextColor = Color.Black};
                     label.SetBinding(Label.TextProperty, "Title");
 
                     grid.Children.Add(label, 1, 0);
@@ -34,9 +38,9 @@ namespace XamarinUser.Views.User
                     return new ViewCell { View = grid };
                 }),
             };
-
-            Title = "Personal Organiser";
-            Padding = new Thickness(0, 40, 0, 0);
+            // Title bat buoc phai co
+            Title = "Flyout Page";
+            Padding = new Thickness(0, 20, 0, 0);
             // Day la content cua Page 
             Content = new StackLayout
             {

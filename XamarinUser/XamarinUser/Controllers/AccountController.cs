@@ -7,25 +7,27 @@ namespace XamarinUser.Controllers
 {
     using Models;
     using System.Security.Cryptography;
+    using Xamarin.Essentials;
 
     class AccountController : BaseController
     {
         public object Login()
         {
-            return View();
+            return View(User);
         }
         public object Login(Newtonsoft.Json.Linq.JObject message)
         {
-            var token = message.GetValue("Token").ToObject<string>();
+            var user = message.ToObject<User>();
+            var token = user.Token;
             if (token == null)
             {
-                Engine.Execute("Base/Alert", "Error", "Couldn't find your account.");
+                if(user.Username == null) Engine.Execute("Base/Alert", "Error", "Couldn't find your account.");
+                else Engine.Execute("Base/Alert", "Error", "Wrong password.");
             }
             else
             {
-                Token = token;
-                var roleId = message.GetValue("RoleId").ToObject<int>();
-                Engine.Execute("User/Test", roleId);
+                User = user;
+                Engine.Execute("User/Begin");
             }
             return null;
         }

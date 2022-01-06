@@ -14,8 +14,9 @@ namespace Listener.Controllers
 
     class AccountController : BaseController
     {
+        // Co so du lieu luu tru Account trong may
         static BsonData.DataBase _accountDb;
-        public BsonData.DataBase AccountDb
+        public static BsonData.DataBase AccountDb
         {
             get
             {
@@ -26,34 +27,13 @@ namespace Listener.Controllers
                 return _accountDb;
             }
         }
+        
         public object Login(Newtonsoft.Json.Linq.JObject account, string cid)
         {
-            string token = null;
-            int? roleId = null;
-            var db = AccountDb.GetCollection("Account").ToDictionary<Account>();
-            KeyValuePair<string, Account> searchResult =
-               db.FirstOrDefault(s => s.Value.Id == (string)account.GetValue("Id") && s.Value.Password == (string)account.GetValue("Password"));
-            var acc = searchResult.Value;
-            //var acc = db.Find(a => a.Id == (string)account.GetValue("Id") && a.Password == (string)account.GetValue("Password"));
-            if (acc != null)
-            {
-                var now = DateTime.Now;
-                token = Program.MD5Hash(acc.Id + " " + now);
-                Engine.Execute("User/CreateUser", new User
-                {
-                    uAccount = acc,
-                    loggedInTime = now,
-                    Token = token
-                });
-                roleId = acc.accRole.Id;
-            }
-
-            var message = new
-            {
-                Token = token,
-                RoleId = roleId
-            };
-            RedirectToAction("Publish", "Account/Login", message, cid);
+            var accountList = AccountDb.GetCollection<Account>().ToList<Account>();
+            var acc = account.ToObject<Account>();
+            var user = acc.FindAccount(accountList);
+            RedirectToAction("Publish", "Account/Login", user, cid);
             return null;
         }
         public object CreateAcc(Newtonsoft.Json.Linq.JObject account, string cid)
@@ -62,12 +42,8 @@ namespace Listener.Controllers
             var db = AccountDb.GetCollection("Account");
             var acc = new Account
             {
-                Id = (string)account.GetValue("Id"),
+                Username = (string)account.GetValue("Username"),
                 Password = (string)account.GetValue("Password"),
-                accRole = new Role()
-                {
-                    Id = 1
-                }
             };
             db.Insert(acc);
             createSuccess = true;
@@ -77,14 +53,13 @@ namespace Listener.Controllers
         public object AddAdmin(Account account)
         {
             var db = AccountDb.GetCollection<Account>();
-            db.Insert(new Account 
+            db.Insert(new Account
             {
-                Id = account.Id,
+                Username = account.Username,
                 Password = account.Password,
-                accRole = account.accRole
             });
             return null;
         }
-        
+
     }
 }

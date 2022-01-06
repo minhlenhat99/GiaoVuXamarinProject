@@ -6,13 +6,11 @@ using Xamarin.Forms;
 
 namespace XamarinUser.Views.User
 {
-    class BaseView<MView> : ContentPage, IView
-        where MView : View, new()
+    public class BaseView<TView> : BaseView<object, TView> where TView : View, new() { }
+    public class BaseView<TModel, TView> : ContentPage, IView where TView : View, new()
     {
-        protected static int? RoleId { get; set; }
-
         protected static NavigationPage _pageContainer;
-        public static NavigationPage PageContainter
+        protected static NavigationPage PageContainter
         {
             get
             {
@@ -23,29 +21,12 @@ namespace XamarinUser.Views.User
                 return _pageContainer;
             }
         }
-        // FlyoutPage
-        protected static MainPage _mainPage;
-        public static MainPage MainPage
-        {
-            get
-            {
-                if(_mainPage == null)
-                {
-                    _mainPage = new MainPage(RoleId);
-                }
-                return _mainPage;
-            }
-        }
-        protected MView MainContent { get; set; }
-        //public MModel Model { get; set; }
+        protected TView MainContent { get; set; }
+        public TModel Model { get; set; }
         public void Render(ControllerContext context)
         {
-            if(RoleId == null)
-            {
-                RoleId = (int)context.Arguments[0];
-            }
-            //Model = (MModel)context.Model;
-            MainContent = new MView();
+            Model = (TModel)context.Model;
+            MainContent = new TView();
             this.Content = MainContent;
             RenderCore();
             SetMainPage(this);
@@ -56,9 +37,8 @@ namespace XamarinUser.Views.User
         }
         protected virtual void SetMainPage(object page)
         {
-            //App.Current.MainPage = (Xamarin.Forms.Page)page;
-            MainPage.Detail = (Page)page;
-            App.Current.MainPage = MainPage;
+            MainPage.mainPage.Detail = (Page)page;
+            App.Current.MainPage = MainPage.mainPage;
         }
     }
 }

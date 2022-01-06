@@ -10,7 +10,18 @@ namespace XamarinUser.Controllers
 {
     class BaseController : Controller
     {
-        public static string Token { get; set; }
+        protected static Models.User _user = new Models.User();
+        public Models.User User
+        {
+            get
+            {
+                return _user;
+            }
+            set
+            {
+                _user = value;
+            }
+        }
         static MqttClient _client;
         static string _topic = "129311";
         static System.Net.IPAddress _hostIp;
@@ -47,8 +58,7 @@ namespace XamarinUser.Controllers
                     var url = (string)obj.GetValue("url");
                     var message = obj.GetValue("message");
                     MainThread.BeginInvokeOnMainThread(() => {
-                        if(message.ToObject<object>() == null) Engine.Execute(url);
-                        else Engine.Execute(url, message);
+                        Engine.Execute(url, message);
                     }
                     );
                 };

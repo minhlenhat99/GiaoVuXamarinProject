@@ -63,7 +63,6 @@ namespace Listener.Controllers
             var msg = Encoding.UTF8.GetBytes(s);
             _client.Publish(_topic + "/" + cid, msg);
             // 
-            //ExecutionThreads.Dequeue().Abort();
             return null;
         }
 

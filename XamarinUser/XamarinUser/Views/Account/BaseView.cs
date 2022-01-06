@@ -6,8 +6,12 @@ using MinhMVC;
 
 namespace XamarinUser.Views.Account
 {
-    class BaseView<MView> : ContentPage, IView
-        where MView : View, new()
+    class BaseView<TView>: BaseView<object, TView> where TView: View, new()
+    {
+
+    }
+    class BaseView<TModel, TView> : ContentPage, IView
+        where TView : View, new()
     {
         protected static NavigationPage _pageContainer;
         public static NavigationPage PageContainter
@@ -21,10 +25,12 @@ namespace XamarinUser.Views.Account
                 return _pageContainer;
             }
         }
-        protected MView MainContent { get; set; }
+        protected TView MainContent { get; set; }
+        protected TModel Model { get; set; }
         public void Render(ControllerContext context)
         {
-            MainContent = new MView();
+            MainContent = new TView();
+            Model = (TModel) context.Model;
             this.Content = MainContent;
             RenderCore();
             SetMainPage(this);

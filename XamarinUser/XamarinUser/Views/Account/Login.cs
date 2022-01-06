@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace XamarinUser.Views.Account
 {
-    class Login : BaseView<StackLayout>
+    class Login : BaseView<Models.User, StackLayout>
     {
         protected override void RenderCore()
         {
@@ -51,7 +51,7 @@ namespace XamarinUser.Views.Account
                     Engine.Execute("Account/Publish", "Account/Login",
                     new Models.Account
                     {
-                        Id = id,
+                        Username = id,
                         Password = App.MD5Hash(pass)
                     });
                 }
@@ -117,7 +117,7 @@ namespace XamarinUser.Views.Account
                     Engine.Execute("Account/Publish", "Account/CreateAcc",
                     new Models.Account
                     {
-                        Id = id,
+                        Username = id,
                         Password = App.MD5Hash(pass)
                     });
                 }

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XamarinUser.Views.User
+namespace XamarinUser.Models
 {
-    public class FlyoutPageItem
+    public class DetailPageItem
     {
         public string Title { get; set; }
-
-        //public string IconSource { get; set; }
+        public string Name { get; set; }
     }
 }

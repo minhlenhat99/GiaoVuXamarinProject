@@ -7,17 +7,17 @@ namespace XamarinUser.Controllers
 {
     class UserController : BaseController
     {
-        public object Test(int roleId)
+        public object ExtendClassRegister()
         {
             return View();
         }
-        public object Test2(int roleId)
+        public object Begin()
         {
-            return View();
+            return View(User);
         }
         public object Logout()
         {
-            RedirectToAction("Publish", "User/Logout", Token);
+            RedirectToAction("Publish", "User/Logout", User.Token);
             return null;
         }
         public object Logout(Newtonsoft.Json.Linq.JValue message)
