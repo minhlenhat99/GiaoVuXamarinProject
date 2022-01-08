@@ -24,5 +24,10 @@ namespace XamarinUser.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
     }
 }

@@ -6,15 +6,28 @@ using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt;
 using System.Threading;
 using MinhMVC;
+using SE = System.Environment;
 
 namespace Listener.Controllers
 {
-    class BaseController : Controller
+    public class BaseController : Controller
     {
         static MqttClient _client;
         static string _topic = "129311";
         static System.Net.IPAddress _hostIp;
-        Queue<Thread> ExecutionThreads = new Queue<Thread>();
+        // Co so du lieu luu tru Account trong may
+        static BsonData.DataBase _accountDb;
+        public static BsonData.DataBase AccountDb
+        {
+            get
+            {
+                if (_accountDb == null)
+                {
+                    _accountDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "AccountDb");
+                }
+                return _accountDb;
+            }
+        }
         protected void Subcribe()
         {
             _client.Subscribe(new string[] { _topic }, new byte[] { 0 });

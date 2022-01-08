@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MinhMVC;
-using SE = System.Environment;
+
 
 namespace Listener.Controllers
 {
@@ -12,27 +12,18 @@ namespace Listener.Controllers
     using System.Diagnostics;
     using System.Security.Cryptography;
 
-    class AccountController : BaseController
+    public class AccountController : BaseController
     {
-        // Co so du lieu luu tru Account trong may
-        static BsonData.DataBase _accountDb;
-        public static BsonData.DataBase AccountDb
-        {
-            get
-            {
-                if (_accountDb == null)
-                {
-                    _accountDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "AccountDb");
-                }
-                return _accountDb;
-            }
-        }
-        
-        public object Login(Newtonsoft.Json.Linq.JObject account, string cid)
+        public object Login(Newtonsoft.Json.Linq.JObject accountLogin, string cid)
         {
             var accountList = AccountDb.GetCollection<Account>().ToList<Account>();
-            var acc = account.ToObject<Account>();
-            var user = acc.FindAccount(accountList);
+            var accLogin = accountLogin.ToObject<Account>();
+            var user = accLogin.FindAccountInfo(accountList);
+            if(user.Account.Password != null)
+            {
+                user.Token = Program.MD5Hash($"{user.Account.Username}{user.LoggedTime}");
+                UserController.CreateUser(user);
+            }
             RedirectToAction("Publish", "Account/Login", user, cid);
             return null;
         }
@@ -44,8 +35,9 @@ namespace Listener.Controllers
             {
                 Username = (string)account.GetValue("Username"),
                 Password = (string)account.GetValue("Password"),
+                Role = new Role { Id = 1 }
             };
-            db.Insert(acc);
+            db.Insert(acc.Username, acc);
             createSuccess = true;
             RedirectToAction("Publish", "Account/CreateAcc", createSuccess, cid);
             return null;

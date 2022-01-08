@@ -7,6 +7,30 @@ namespace XamarinUser.Controllers
 {
     class UserController : BaseController
     {
+        public object ChangePassword()
+        {
+            return View(User);
+        }
+        public object ChangePassword(Newtonsoft.Json.Linq.JValue message)
+        {
+            var isSuccess = message.ToObject<bool>();
+            var alert = "";
+            var detail = "";
+            if (isSuccess)
+            {
+                alert = "Success";
+                detail = "Change password successfully";
+            }
+            else
+            {
+                alert = "Erorr";
+                detail = "Enter wrong password";
+                RedirectToAction("Logout");
+            }
+            Engine.Execute("Base/Alert", alert, detail);
+            return null;
+        }
+
         public object ExtendClassRegister()
         {
             return View();

@@ -13,7 +13,7 @@ namespace XamarinUser.Controllers
     {
         public object Login()
         {
-            return View(User);
+            return View();
         }
         public object Login(Newtonsoft.Json.Linq.JObject message)
         {
@@ -21,7 +21,7 @@ namespace XamarinUser.Controllers
             var token = user.Token;
             if (token == null)
             {
-                if(user.Username == null) Engine.Execute("Base/Alert", "Error", "Couldn't find your account.");
+                if(user.Account.Username == null) Engine.Execute("Base/Alert", "Error", "Couldn't find your account.");
                 else Engine.Execute("Base/Alert", "Error", "Wrong password.");
             }
             else

@@ -13,13 +13,8 @@ namespace XamarinUser.Controllers
         protected static Models.User _user = new Models.User();
         public Models.User User
         {
-            get
-            {
-                return _user;
-            }
-            set
-            {
-                _user = value;
+            get { return _user; }
+            set { _user = value;
             }
         }
         static MqttClient _client;
@@ -58,7 +53,9 @@ namespace XamarinUser.Controllers
                     var url = (string)obj.GetValue("url");
                     var message = obj.GetValue("message");
                     MainThread.BeginInvokeOnMainThread(() => {
-                        Engine.Execute(url, message);
+                        if (message.ToObject<object>() == null) { Engine.Execute(url); }
+                        else { 
+                            Engine.Execute(url, message); }
                     }
                     );
                 };

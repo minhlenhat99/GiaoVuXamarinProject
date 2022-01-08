@@ -30,7 +30,6 @@ namespace XamarinUser
         {
             Engine.Register(this);
             Engine.Execute("Home/Default");
-            //Views.User.Test test = new Views.User.Test();
         }
         
         protected override void OnSleep()

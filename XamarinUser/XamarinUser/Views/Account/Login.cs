@@ -13,10 +13,8 @@ namespace XamarinUser.Views.Account
         {
             this.Title = "Login";
             Entry entryID = new Entry { Placeholder = "Username" };
-            MainContent.Children.Add(entryID);
             Entry entryPassword = new Entry { Placeholder = "Password" };
             entryPassword.IsPassword = true;
-            MainContent.Children.Add(entryPassword);
             CheckBox cbxViewPasswd = new CheckBox()
             {
                 IsChecked = false,
@@ -36,7 +34,6 @@ namespace XamarinUser.Views.Account
                      new Label {Text = "View Password", VerticalTextAlignment = TextAlignment.Center, TextColor = Color.Black}
                 }
             };
-            MainContent.Children.Add(viewPasswd);
             Button btnLogin = new Button { Text = "Login" };
             btnLogin.Clicked += (s, e) =>
             {
@@ -57,12 +54,20 @@ namespace XamarinUser.Views.Account
                 }
                 
             };
-            MainContent.Children.Add(btnLogin);
             Button btnCreateNewAcc = new Button { Text = "Create New Account" };
             btnCreateNewAcc.Clicked += (s, e) =>
             {
                 Engine.Execute("Account/CreateAcc");
+                //var testLayout = new 
+                //DatePicker datePicker = new DatePicker
+                //{
+                //    Date = new DateTime(1999, 1, 1),
+                //};
             };
+            MainContent.Children.Add(entryID);
+            MainContent.Children.Add(entryPassword);
+            MainContent.Children.Add(viewPasswd);
+            MainContent.Children.Add(btnLogin);
             MainContent.Children.Add(btnCreateNewAcc);
         }
         protected override void SetMainPage(object page)
@@ -80,10 +85,8 @@ namespace XamarinUser.Views.Account
         {
             this.Title = "Create New Account";
             Entry entryID = new Entry { Placeholder = "Student ID" };
-            MainContent.Children.Add(entryID);
             Entry entryPassword = new Entry { Placeholder = "New Password" };
             entryPassword.IsPassword = true;
-            MainContent.Children.Add(entryPassword);
             CheckBox cbxViewPasswd = new CheckBox()
             {
                 IsChecked = false,
@@ -103,7 +106,6 @@ namespace XamarinUser.Views.Account
                      new Label {Text = "Show Password", VerticalTextAlignment = TextAlignment.Center, TextColor = Color.Black}
                 }
             };
-            MainContent.Children.Add(viewPasswd);
             Button btnCreate = new Button { Text = "Create" };
             btnCreate.Clicked += (s, e) => {
                 string id = entryID.Text;
@@ -123,6 +125,9 @@ namespace XamarinUser.Views.Account
                 }
                
             };
+            MainContent.Children.Add(entryID);
+            MainContent.Children.Add(entryPassword);
+            MainContent.Children.Add(viewPasswd);
             MainContent.Children.Add(btnCreate);
         }
         protected override void SetMainPage(object page)

@@ -10,8 +10,9 @@ namespace Listener.Models
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public Role Role { get; set; }
 
-        public User FindAccount(List<Account> accountList)
+        public User FindAccountInfo(List<Account> accountList)
         {
             var foundAcc = accountList.Find(s => s.Username == this.Username);
             var user = new User();
@@ -19,15 +20,13 @@ namespace Listener.Models
             {
                 return user;
             }
-            user.Username = this.Username;
+            user.Account.Username = this.Username;
             if (foundAcc.Password != this.Password)
             {
                 return user;
             }
-            user.Password = this.Password;
-            user.LoggedInTime = DateTime.Now;
-            user.Token = Program.MD5Hash($"{user.Username}{user.LoggedInTime}");
-            user.Role = new Role { Id = 1 };
+            user.Account.Password = foundAcc.Password;
+            user.Account.Role = foundAcc.Role;
             return user;
         }
     }

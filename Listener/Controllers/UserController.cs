@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace Listener.Controllers
 {
-    class UserController : BaseController
+    public class UserController : BaseController
     {
-        static UsersData db = new UsersData();
+        static OnlineUsers db = new OnlineUsers();
 
-        public object CreateUser(User newUser)
+        public static void CreateUser(User loginAccount)
         {
-            db.Add(newUser);
-            return null;
+            db.Add(loginAccount);
         }
         public object Logout(Newtonsoft.Json.Linq.JValue token, string cid)
         {
@@ -25,6 +24,26 @@ namespace Listener.Controllers
                 db.Remove(user);
                 RedirectToAction("Publish", "Account/Login", cid);
             }
+            return null;
+        }
+        public object ChangePassword(Newtonsoft.Json.Linq.JObject message, string cid)
+        {
+            var isSuccess = false;
+            var token = (string)message.GetValue("Token");
+            var user = db.Find(token);
+            // Neu user ton tai
+            if (user != null)
+            {
+                var oldPassword = (string)message.GetValue("OldPass");
+                if (user.Account.Password == oldPassword)
+                {
+                    var newPassword = (string)message.GetValue("NewPass");
+                    user.Account.Password = newPassword;
+                    AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
+                    isSuccess = true;
+                }
+            }
+            RedirectToAction("Publish", "User/ChangePassword", isSuccess, cid);
             return null;
         }
     }
