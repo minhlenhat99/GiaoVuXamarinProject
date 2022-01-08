@@ -7,6 +7,10 @@ namespace XamarinUser.Controllers
 {
     class UserController : BaseController
     {
+        public object PersonalInfoUpdate()
+        {
+            return View(User);
+        }
         public object ChangePassword()
         {
             return View(User);

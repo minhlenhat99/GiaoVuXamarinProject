@@ -29,7 +29,10 @@ namespace XamarinUser
         protected override void OnStart()
         {
             Engine.Register(this);
-            Engine.Execute("Home/Default");
+            //Engine.Execute("Home/Default");
+            var test = new Views.User.PersonalInfoUpdate();
+            ControllerContext ctTest = new ControllerContext();
+            test.Render(ctTest);
         }
         
         protected override void OnSleep()

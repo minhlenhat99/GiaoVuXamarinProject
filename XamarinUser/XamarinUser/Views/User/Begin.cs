@@ -26,6 +26,7 @@ namespace XamarinUser.Views.User
 
             var optionsView = new ListView();
             optionsView.IsGroupingEnabled = true;
+            optionsView.ItemsSource = groups;
             optionsView.GroupHeaderTemplate = new DataTemplate(() =>
             {
                 Padding = new Thickness(15, 0, 0, 15);
@@ -42,7 +43,6 @@ namespace XamarinUser.Views.User
                     View = label
                 };
             });
-            optionsView.ItemsSource = groups;
             optionsView.ItemTemplate = new DataTemplate(() =>
             {
                 var label = new Label

@@ -12,6 +12,7 @@ namespace XamarinUser.Views.Account
         protected override void RenderCore()
         {
             this.Title = "Login";
+            Padding = new Thickness(5, 0, 5, 0);
             Entry entryID = new Entry { Placeholder = "Username" };
             Entry entryPassword = new Entry { Placeholder = "Password" };
             entryPassword.IsPassword = true;
@@ -58,11 +59,6 @@ namespace XamarinUser.Views.Account
             btnCreateNewAcc.Clicked += (s, e) =>
             {
                 Engine.Execute("Account/CreateAcc");
-                //var testLayout = new 
-                //DatePicker datePicker = new DatePicker
-                //{
-                //    Date = new DateTime(1999, 1, 1),
-                //};
             };
             MainContent.Children.Add(entryID);
             MainContent.Children.Add(entryPassword);
@@ -84,6 +80,7 @@ namespace XamarinUser.Views.Account
         protected override void RenderCore()
         {
             this.Title = "Create New Account";
+            Padding = new Thickness(5, 0, 5, 0);
             Entry entryID = new Entry { Placeholder = "Student ID" };
             Entry entryPassword = new Entry { Placeholder = "New Password" };
             entryPassword.IsPassword = true;

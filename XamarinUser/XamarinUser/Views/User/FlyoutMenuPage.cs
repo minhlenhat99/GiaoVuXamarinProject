@@ -13,7 +13,7 @@ namespace XamarinUser.Views.User
         public FlyoutMenuPage()
         {
             var flyoutPageItems = new List<Models.FlyoutPageItem>();
-            flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Thông tin cá nhân" });
+            flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Thông tin cá nhân", Name = "PersonalInfoUpdate" });
             flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Thông tin liên hệ" });
             flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Đổi mật khẩu", Name = "ChangePassword" });
             flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Quản lý đào tạo" });

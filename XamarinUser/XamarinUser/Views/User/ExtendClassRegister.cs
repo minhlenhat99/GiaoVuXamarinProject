@@ -10,6 +10,7 @@ namespace XamarinUser.Views.User
         protected override void RenderCore()
         {
             this.Title = "Register Class";
+            Padding = new Thickness(5, 0, 5, 0);
             Entry entryReason = new Entry { Placeholder = "Lý do" };
             Entry entrySubjectId = new Entry { Placeholder = "Mã học phần" };
             Entry entrySubjectName = new Entry { Placeholder = "Tên học phần" };
