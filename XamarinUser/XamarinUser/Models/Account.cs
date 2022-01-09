@@ -9,6 +9,8 @@ namespace XamarinUser.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
+        public PersonalInfo PInfo { get; set; }
+        public ContactInfo CInfo { get; set; }
     }
     
 }

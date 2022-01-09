@@ -8,9 +8,18 @@ namespace Listener.Models
 {
     public class Account
     {
+        private PersonalInfo _pInfo;
         public string Username { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
+        public PersonalInfo PInfo { 
+            get 
+            {
+                if(_pInfo == null) { _pInfo = new PersonalInfo(); }
+                return _pInfo;
+            }
+            set { _pInfo = value; } 
+        }
 
         public User FindAccountInfo(List<Account> accountList)
         {
@@ -27,6 +36,7 @@ namespace Listener.Models
             }
             user.Account.Password = foundAcc.Password;
             user.Account.Role = foundAcc.Role;
+            user.Account.PInfo = foundAcc.PInfo;
             return user;
         }
     }

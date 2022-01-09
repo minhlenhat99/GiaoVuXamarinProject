@@ -5,11 +5,27 @@ using System.Text;
 
 namespace XamarinUser.Controllers
 {
+    using Models;
     class UserController : BaseController
     {
+        public object ContactInfoUpdate()
+        {
+            return View(User);
+        }
         public object PersonalInfoUpdate()
         {
             return View(User);
+        }
+        public object PersonalInfoUpdate(Newtonsoft.Json.Linq.JObject message)
+        {
+            var isSuccess = message.GetValue("IsSuccess").ToObject<bool>();
+            if (isSuccess)
+            {
+                Engine.Execute("Base/Alert", "Success", "Update personal information successfully");
+                var user = message.GetValue("User").ToObject<User>();
+                User = user;
+            }
+            return null;
         }
         public object ChangePassword()
         {

@@ -46,5 +46,23 @@ namespace Listener.Controllers
             RedirectToAction("Publish", "User/ChangePassword", isSuccess, cid);
             return null;
         }
+        public object PersonalInfoUpdate(Newtonsoft.Json.Linq.JObject message, string cid)
+        {
+            var isSuccess = false;
+            var token = message.GetValue("Token").ToString();
+            var info = message.GetValue("Info").ToObject<PersonalInfo>();
+            var user = db.Find(token);
+            if (user != null)
+            {
+                user.Account.PInfo = info;
+                AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
+                isSuccess = true;
+            }
+            var replied = new Dictionary<string, object>();
+            replied.Add("IsSuccess", isSuccess);
+            replied.Add("User", user);
+            RedirectToAction("Publish", "User/PersonalInfoUpdate", replied, cid);
+            return null;
+        }
     }
 }
