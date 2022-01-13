@@ -11,6 +11,17 @@ namespace XamarinUser.Controllers
         public object ContactInfoUpdate()
         {
             return View(User);
+        } 
+        public object ContactInfoUpdate(Newtonsoft.Json.Linq.JObject message)
+        {
+            var isSuccess = message.GetValue("IsSuccess").ToObject<bool>();
+            if (isSuccess)
+            {
+                Engine.Execute("Base/Alert", "Success", "Update contact information successfully");
+                var user = message.GetValue("User").ToObject<User>();
+                User = user;
+            }
+            return null;
         }
         public object PersonalInfoUpdate()
         {
@@ -53,7 +64,31 @@ namespace XamarinUser.Controllers
 
         public object ExtendClassRegister()
         {
-            return View();
+            return View(User);
+        } 
+        public object ExtendClassModify(Newtonsoft.Json.Linq.JValue message)
+        {
+            var isSuccess = message.ToObject<bool>();
+            if (isSuccess)
+            {
+                Engine.Execute("Base/Alert", "Success", "Modify successfully");
+            }
+            return null;
+        }
+        public object ExtendClassRegister(Newtonsoft.Json.Linq.JObject message)
+        {
+            var isSuccess = message.GetValue("IsSuccess").ToObject<bool>();
+            if (isSuccess)
+            {
+                Engine.Execute("Base/Alert", "Success", "Register successfully");
+                var user = message.GetValue("User").ToObject<User>();
+                User = user;
+            }
+            return null;
+        }
+        public object ExtendClassMainPage()
+        {
+            return View(User);
         }
         public object Begin()
         {

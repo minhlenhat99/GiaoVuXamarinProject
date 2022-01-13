@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,9 +53,13 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\GiaovuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\ContactInfo.cs" />
+    <Compile Include="Models\ExtendClass.cs" />
+    <Compile Include="Models\ExtendClassRegister.cs" />
     <Compile Include="Models\PersonalInfo.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />

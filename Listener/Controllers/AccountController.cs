@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MinhMVC;
 
-
 namespace Listener.Controllers
 {
     using Models;
@@ -45,11 +44,7 @@ namespace Listener.Controllers
         public object AddAdmin(Account account)
         {
             var db = AccountDb.GetCollection<Account>();
-            db.Insert(new Account
-            {
-                Username = account.Username,
-                Password = account.Password,
-            });
+            db.Insert(account.Username, account);
             return null;
         }
 

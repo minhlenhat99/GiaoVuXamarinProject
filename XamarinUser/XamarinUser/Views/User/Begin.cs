@@ -11,8 +11,9 @@ namespace XamarinUser.Views.User
     {
         protected override void RenderCore()
         {
-            Padding = new Thickness(5, 10, 10, 0);
-
+            Padding = new Thickness(5, 0, 10, 0);
+            Title = "Home";
+            
             var groups = new ObservableCollection<Grouping<string, Models.DetailPageItem>>();
 
             var paperOptions = new List<Models.DetailPageItem>();
@@ -21,7 +22,7 @@ namespace XamarinUser.Views.User
             paperOptions.Add(new Models.DetailPageItem { Title = "Bảng điểm" });
             groups.Add(new Grouping<string, Models.DetailPageItem>("Cấp giấy tờ", paperOptions));
             var classOptions = new List<Models.DetailPageItem>();
-            classOptions.Add(new Models.DetailPageItem { Title = "Đăng ký mở rộng lớp", Name = "ExtendClassRegister" });
+            classOptions.Add(new Models.DetailPageItem { Title = "Đăng ký mở rộng lớp", Name = "ExtendClassMainPage" });
             groups.Add(new Grouping<string, Models.DetailPageItem>("Mở rộng lớp", classOptions));
 
             var optionsView = new ListView();
@@ -29,12 +30,13 @@ namespace XamarinUser.Views.User
             optionsView.ItemsSource = groups;
             optionsView.GroupHeaderTemplate = new DataTemplate(() =>
             {
-                Padding = new Thickness(15, 0, 0, 15);
+                Padding = new Thickness(15, 10, 5, 15);
                 var label = new Label
                 {
                     VerticalOptions = LayoutOptions.FillAndExpand,
-                    FontSize = 20,
+                    FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label)),
                     TextColor = Color.Black,
+                    FontAttributes = FontAttributes.Bold,
                     VerticalTextAlignment = TextAlignment.Center,
                 };
                 label.SetBinding(Label.TextProperty, "GroupKey");
@@ -48,7 +50,7 @@ namespace XamarinUser.Views.User
                 var label = new Label
                 {
                     VerticalOptions = LayoutOptions.FillAndExpand,
-                    FontSize = 15,
+                    FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label)),
                     TextColor = Color.DarkBlue,
                     VerticalTextAlignment = TextAlignment.Center,
                 };

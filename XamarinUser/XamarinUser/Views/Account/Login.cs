@@ -100,7 +100,7 @@ namespace XamarinUser.Views.Account
                 Children =
                 {
                      cbxViewPasswd,
-                     new Label {Text = "Show Password", VerticalTextAlignment = TextAlignment.Center, TextColor = Color.Black}
+                     new Label {Text = "View Password", VerticalTextAlignment = TextAlignment.Center, TextColor = Color.Black}
                 }
             };
             Button btnCreate = new Button { Text = "Create" };

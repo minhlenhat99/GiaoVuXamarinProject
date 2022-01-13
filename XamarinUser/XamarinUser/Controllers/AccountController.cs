@@ -31,7 +31,6 @@ namespace XamarinUser.Controllers
             }
             return null;
         }
-        
         public object CreateAcc()
         {
             return View();

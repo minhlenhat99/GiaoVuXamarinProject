@@ -18,6 +18,7 @@ namespace XamarinUser.Models
         }
         public string Token { get; set; }
         public DateTime LoggedInTime { get; set; }
-        
+        public int ItemSelected { get; set; } = -1;
+        public string studentSelected { get; set; } = "";
     }
 }

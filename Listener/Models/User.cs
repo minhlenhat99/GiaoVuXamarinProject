@@ -19,6 +19,8 @@ namespace Listener.Models
         }
         public string Token { get; set; }
         public DateTime LoggedTime { get; set; } = DateTime.Now;
+        public int ItemSelected { get; set; } = -1;
+
     }
 
     public class OnlineUsers : List<User>

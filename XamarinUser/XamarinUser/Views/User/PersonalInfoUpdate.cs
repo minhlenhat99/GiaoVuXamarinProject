@@ -11,53 +11,39 @@ namespace XamarinUser.Views.User
     {
         protected override void RenderCore()
         {
-            double fontSize = Device.GetNamedSize(NamedSize.Default, typeof(Entry));
             this.Title = "Personal Information";
-            Padding = new Thickness(5, 0, 5, 0);
-            Grid infoGrid = new Grid
-            {
-                RowDefinitions =
-                {
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto }
-                },
-                ColumnDefinitions =
-                {
-                    new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
-                    new ColumnDefinition { Width = new GridLength(7, GridUnitType.Star) }
-                }
-            };
+            Padding = new Thickness(5, 10, 5, 0);
             // Name section
-            var nameLb = new Label { Text = "Họ tên", FontSize = fontSize, VerticalOptions = LayoutOptions.Center, TextColor = Color.Black, FontFamily = "" };
-            var nameEntry = new Entry { Placeholder = "Nguyễn Văn A", FontSize = fontSize };
+            var nameLb = CreateLabel("Họ tên");
+            var nameEntry = CreateEntry("Nguyễn Văn A");
             // Gender section
-            var genderLb = new Label { Text = "Giới tính", FontSize = fontSize, VerticalOptions = LayoutOptions.Center, TextColor = Color.Black };
+            var genderLb = CreateLabel("Giới tính");
             Picker genderPicker = new Picker
             {
                 Title = "Select a gender",
-                FontSize = fontSize,
+                FontSize = entryFontSize,
+                Margin = entryMargin
             };
             genderPicker.Items.Add("Nam");
             genderPicker.Items.Add("Nữ");
             // Birthday section
-            var birthdayLb = new Label { Text = "Ngày sinh", FontSize = fontSize, VerticalOptions = LayoutOptions.Center, TextColor = Color.Black };
+            var birthdayLb = CreateLabel("Ngày sinh");
             DatePicker birthdayPicker = new DatePicker
             {
-                Date = new DateTime(1999, 1, 1)
+                Date = new DateTime(1999, 1, 1),
+                FontSize = entryFontSize,
+                Margin = entryMargin
             };
             // Birthplace section
-            var birthplaceLb = new Label { Text = "Nơi sinh", FontSize = fontSize, VerticalOptions = LayoutOptions.Center, TextColor = Color.Black };
-            var birthplaceEntry = new Entry { Placeholder = "Washington, D.C.", FontSize = fontSize };
-
+            var birthplaceLb = CreateLabel("Nơi sinh");
+            var birthplaceEntry = CreateEntry("Washington, D.C.");
             // Set Value
-            nameEntry.Text = Model.Account.PInfo.Name;
-            birthplaceEntry.Text = Model.Account.PInfo.Birthplace;
-            genderPicker.SelectedItem = Model.Account.PInfo.Gender;
-            birthdayPicker.Date = DateTime.Parse(Model.Account.PInfo.Birthday);
+            if (Model.Account.PInfo.Name != null) nameEntry.Text = Model.Account.PInfo.Name;
+            if (Model.Account.PInfo.Birthplace != null) birthplaceEntry.Text = Model.Account.PInfo.Birthplace;
+            if (Model.Account.PInfo.Gender != null) genderPicker.SelectedItem = Model.Account.PInfo.Gender;
+            if (Model.Account.PInfo.Birthday != null) birthdayPicker.Date = DateTime.Parse(Model.Account.PInfo.Birthday);
 
-            Button submit = new Button { Text = "Submit" };
+            Button submit = new Button { Text = "Submit", VerticalOptions = LayoutOptions.End };
             submit.Clicked += (s, e) =>
             {
                 var personalInfo = new PersonalInfo();
@@ -72,16 +58,14 @@ namespace XamarinUser.Views.User
                 Engine.Execute("User/Publish", "User/PersonalInfoUpdate", message);
             };
 
-            infoGrid.Children.Add(nameLb, 0, 0);
-            infoGrid.Children.Add(genderLb, 0, 1);
-            infoGrid.Children.Add(birthdayLb, 0, 2);
-            infoGrid.Children.Add(birthplaceLb, 0, 3);
-            infoGrid.Children.Add(nameEntry, 1, 0);
-            infoGrid.Children.Add(genderPicker, 1, 1);
-            infoGrid.Children.Add(birthdayPicker, 1, 2);
-            infoGrid.Children.Add(birthplaceEntry, 1, 3);
-
-            MainContent.Children.Add(infoGrid);
+            MainContent.Children.Add(nameLb);
+            MainContent.Children.Add(nameEntry);
+            MainContent.Children.Add(genderLb);
+            MainContent.Children.Add(genderPicker);
+            MainContent.Children.Add(birthdayLb);
+            MainContent.Children.Add(birthdayPicker);
+            MainContent.Children.Add(birthplaceLb);
+            MainContent.Children.Add(birthplaceEntry);
             MainContent.Children.Add(submit);
         }
         protected override void SetMainPage(object page)
@@ -89,5 +73,6 @@ namespace XamarinUser.Views.User
             Begin.PageContainter.PushAsync(this);
             base.SetMainPage(Begin.PageContainter);
         }
+        
     }
 }

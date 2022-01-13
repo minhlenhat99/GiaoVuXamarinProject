@@ -17,6 +17,7 @@ namespace Listener.Controllers
         static System.Net.IPAddress _hostIp;
         // Co so du lieu luu tru Account trong may
         static BsonData.DataBase _accountDb;
+        static BsonData.DataBase _extendClassGiaoVuDb;
         public static BsonData.DataBase AccountDb
         {
             get
@@ -26,6 +27,17 @@ namespace Listener.Controllers
                     _accountDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "AccountDb");
                 }
                 return _accountDb;
+            }
+        }
+        public static BsonData.DataBase ExtendClassGiaoVuDb
+        {
+            get
+            {
+                if (_extendClassGiaoVuDb == null)
+                {
+                    _extendClassGiaoVuDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "ExtendClassGiaoVuDb");
+                }
+                return _extendClassGiaoVuDb;
             }
         }
         protected void Subcribe()

@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Listener.Models
 {
+    using Controllers;
     public class Account
     {
         private PersonalInfo _pInfo;
+        private ContactInfo _cInfo;
+        private List<ExtendClass> _classList;
+        private List<ExtendClassRegister> _registerClassList;
         public string Username { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
@@ -20,7 +24,35 @@ namespace Listener.Models
             }
             set { _pInfo = value; } 
         }
-
+        public ContactInfo CInfo { 
+            get 
+            {
+                if(_cInfo == null) { _cInfo = new ContactInfo(); }
+                return _cInfo;
+            }
+            set { _cInfo = value; } 
+        }
+        public List<ExtendClass> ClassList 
+        {
+            get 
+            {
+                if (_classList == null) _classList = new List<ExtendClass>();
+                return _classList;
+            }
+            set { _classList = value; }
+        }
+        public List<ExtendClassRegister> AllRegisterClassList { 
+            get
+            {
+                if (Role.Id == 0)
+                    _registerClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
+                return _registerClassList;
+            }
+            set
+            {
+                _registerClassList = value;
+            }
+        }
         public User FindAccountInfo(List<Account> accountList)
         {
             var foundAcc = accountList.Find(s => s.Username == this.Username);
@@ -37,6 +69,10 @@ namespace Listener.Models
             user.Account.Password = foundAcc.Password;
             user.Account.Role = foundAcc.Role;
             user.Account.PInfo = foundAcc.PInfo;
+            user.Account.CInfo = foundAcc.CInfo;
+            user.Account.ClassList = foundAcc.ClassList;
+            if(foundAcc.Role.Id == 0)
+                user.Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
             return user;
         }
     }

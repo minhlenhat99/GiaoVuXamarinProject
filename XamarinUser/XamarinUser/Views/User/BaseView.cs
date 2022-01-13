@@ -9,6 +9,9 @@ namespace XamarinUser.Views.User
     public class BaseView<TView> : BaseView<object, TView> where TView : View, new() { }
     public class BaseView<TModel, TView> : ContentPage, IView where TView : View, new()
     {
+        protected static double entryFontSize = Device.GetNamedSize(NamedSize.Default, typeof(Entry));
+        protected static double labelFontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+        protected static Thickness entryMargin = new Thickness(0, 0, 0, 15);
         protected static NavigationPage _pageContainer;
         protected static NavigationPage PageContainter
         {
@@ -42,6 +45,39 @@ namespace XamarinUser.Views.User
         {
             MainPage.mainPage.Detail = (Page)page;
             App.Current.MainPage = MainPage.mainPage;
+        }
+        protected Label CreateLabel(string text)
+        {
+            return new Label
+            {
+                Text = text,
+                FontSize = labelFontSize,
+                VerticalOptions = LayoutOptions.Center,
+                FontAttributes = FontAttributes.Bold,
+                BackgroundColor = Color.LightBlue,
+                HorizontalOptions = LayoutOptions.Start,
+                TextColor = Color.Black,
+                Padding = new Thickness(5, 2, 5, 2)
+            };
+        }
+        protected Entry CreateEntry(string text)
+        {
+            return new Entry
+            {
+                Placeholder = text,
+                FontSize = entryFontSize,
+                Margin = entryMargin
+            };
+        }
+        protected Editor CreateEditor(string text)
+        {
+            return new Editor
+            {
+                Placeholder = text,
+                FontSize = entryFontSize,
+                Margin = entryMargin,
+                AutoSize = EditorAutoSizeOption.TextChanges
+            };
         }
     }
 }

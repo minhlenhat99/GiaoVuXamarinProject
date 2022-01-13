@@ -14,8 +14,7 @@ namespace XamarinUser.Controllers
         public Models.User User
         {
             get { return _user; }
-            set { _user = value;
-            }
+            set { _user = value; }
         }
         static MqttClient _client;
         static string _topic = "129311";
