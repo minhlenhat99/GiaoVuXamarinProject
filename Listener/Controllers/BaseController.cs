@@ -90,13 +90,10 @@ namespace Listener.Controllers
             // 
             return null;
         }
-
         public object Publish(string sUrl, string cid)
         {
             Publish(sUrl, null, cid);
             return null;
         }
-
-
     }
 }

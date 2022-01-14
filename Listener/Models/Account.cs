@@ -32,6 +32,7 @@ namespace Listener.Models
             }
             set { _cInfo = value; } 
         }
+        public bool HadSendRegister { get; set; }
         public List<ExtendClass> ClassList 
         {
             get 
@@ -44,8 +45,9 @@ namespace Listener.Models
         public List<ExtendClassRegister> AllRegisterClassList { 
             get
             {
-                if (Role.Id == 0)
-                    _registerClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
+                if(Role != null)
+                    if (Role.Id == 0)
+                        _registerClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
                 return _registerClassList;
             }
             set
@@ -71,6 +73,7 @@ namespace Listener.Models
             user.Account.PInfo = foundAcc.PInfo;
             user.Account.CInfo = foundAcc.CInfo;
             user.Account.ClassList = foundAcc.ClassList;
+            user.Account.HadSendRegister = foundAcc.HadSendRegister;
             if(foundAcc.Role.Id == 0)
                 user.Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
             return user;

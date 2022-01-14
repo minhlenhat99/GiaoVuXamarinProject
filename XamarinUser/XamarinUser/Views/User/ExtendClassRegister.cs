@@ -40,8 +40,10 @@ namespace XamarinUser.Views.User
             MainContent.Children.Add(entryNewClassId);
             MainContent.Children.Add(oldClassIdLb);
             MainContent.Children.Add(entryOldClassId);
+            // Sinh vien
             if(Model.Account.Role.Id == 1)
             {
+                // Dang ky
                 if (itemSelected < 0)
                 {
                     MainContent.Children.Add(btnSubmit);
@@ -60,6 +62,7 @@ namespace XamarinUser.Views.User
                     };
                    
                 }
+                // Chinh sua, xoa
                 else
                 {
                     var data = Model.Account.ClassList[itemSelected];
@@ -68,7 +71,7 @@ namespace XamarinUser.Views.User
                     if (data.SubjectName != null) entrySubjectName.Text = data.SubjectName;
                     if (data.NewClassId != null) entryNewClassId.Text = data.NewClassId;
                     if (data.OldClassId != null) oldClassIdLb.Text = data.OldClassId;
-                    //if (data.Status.ID == 0)
+                    if (data.Status.ID == 0)
                     {
                         btnDelete.Clicked += (s, e) => 
                         {
@@ -94,6 +97,7 @@ namespace XamarinUser.Views.User
                     }
                 }
             }
+            // Giao vu
             else
             {
                 var registerClasses = Model.Account.AllRegisterClassList.Find(c => c.Username == studentId);
@@ -111,12 +115,23 @@ namespace XamarinUser.Views.User
                     var message = new Dictionary<string, object>();
                     message.Add("Token", Model.Token);
                     message.Add("ClassList", registerClasses);
-                    Engine.Execute("GiaoVu/Publish", "GiaoVu/ExtendClassRegisterUpdate", message);
-                    Engine.Execute("GiaoVu/ExtendClassMainPage");
+                    Engine.Execute("Giaovu/Publish", "Giaovu/ExtendClassRegisterUpdate", message);
                 };
-                btnNotApprove.Clicked += (s, e) =>
+                btnNotApprove.Clicked += async (s, e) =>
                 {
-
+                    await DisplayPromptAsync("Info", "Lý do không duyệt:", "Send", "Cancel").ContinueWith(
+                    t =>
+                    {
+                        if (t.Result != null && t.Result != "")
+                        {
+                            registerClasses.RegisterClassList[itemSelected].Status.ID = 3;
+                            registerClasses.RegisterClassList[itemSelected].Status.Value = t.Result;
+                            var message = new Dictionary<string, object>();
+                            message.Add("Token", Model.Token);
+                            message.Add("ClassList", registerClasses);
+                            Engine.Execute("Giaovu/Publish", "Giaovu/ExtendClassRegisterUpdate", message);
+                        }
+                    });
                 };
                 MainContent.Children.Add(btnApprove);
                 MainContent.Children.Add(btnNotApprove);

@@ -22,6 +22,9 @@ namespace XamarinUser.Views.User
                     _pageContainer = new NavigationPage();
                     var logout = new ToolbarItem() { Text = "Logout" };
                     logout.Clicked += (s, e) => { Engine.Execute("User/Logout"); };
+                    var home = new ToolbarItem() { Text = "Home" };
+                    home.Clicked += (s, e) => { Engine.Execute("User/Begin"); };
+                    _pageContainer.ToolbarItems.Add(home);
                     _pageContainer.ToolbarItems.Add(logout);
                 }
                 return _pageContainer;

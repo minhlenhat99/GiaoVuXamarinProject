@@ -108,6 +108,7 @@ namespace Listener.Controllers
                 {
                     c.Status.ID = 1;
                 }
+                user.Account.HadSendRegister = true;
                 AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Insert(user.Account.Username,
                     new ExtendClassRegister

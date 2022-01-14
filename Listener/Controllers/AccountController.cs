@@ -34,7 +34,8 @@ namespace Listener.Controllers
             {
                 Username = (string)account.GetValue("Username"),
                 Password = (string)account.GetValue("Password"),
-                Role = new Role { Id = 1 }
+                Role = new Role { Id = 1 },
+                HadSendRegister = false,
             };
             db.Insert(acc.Username, acc);
             createSuccess = true;

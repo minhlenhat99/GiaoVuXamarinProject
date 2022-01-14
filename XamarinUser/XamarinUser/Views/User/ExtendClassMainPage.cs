@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -23,6 +24,7 @@ namespace XamarinUser.Views.User
                 HorizontalOptions = LayoutOptions.Center
             };
             MainContent.Children.Add(title);
+            // Sinh vien
             if (Model.Account.Role.Id == 1)
             {
                 title.Text = "Danh sách lớp đăng ký";
@@ -67,19 +69,27 @@ namespace XamarinUser.Views.User
                 Button register = new Button { Text = "Gửi đăng ký", VerticalOptions = LayoutOptions.End };
                 register.Clicked += async (s, e) => 
                 {
-                    bool answer = await DisplayAlert("Warning", "Bạn chỉ có một lần đăng ký duy nhất. Bạn có chắc không?", "Có", "Không");
-                    if (answer)
+                    await DisplayAlert("Warning", "Bạn chỉ có một lần đăng ký duy nhất. Bạn có chắc không?", "Có", "Không").ContinueWith(
+                    t =>
                     {
-                        Device.BeginInvokeOnMainThread(() =>
+                        if (t.Result)
                         {
                             var message = new Dictionary<string, object>();
                             message.Add("Token", Model.Token);
-                            Engine.Execute("User/Publish", "User/Begin", message);
-                        });
-                    }
+                            Engine.Execute("User/Publish", "User/ExtendClassRegister", message);
+                            Engine.Execute("User/ExtendClassMainPage");
+                        }
+                    });
                 };
                 MainContent.Children.Add(register);
+                if (Model.Account.ClassList.Count == 3) add.IsEnabled = false;
+                if (Model.Account.HadSendRegister)
+                {
+                    add.IsEnabled = false;
+                    register.IsEnabled = false;
+                }
             }
+            // Nhan vien giao vu
             else
             {
                 title.Text = "Danh sách học sinh đăng ký";
@@ -127,7 +137,29 @@ namespace XamarinUser.Views.User
                     Button finish = new Button { Text = "Hoàn thành" };
                     finish.Clicked += (s, e) =>
                     {
-
+                        var data = Model.Account.AllRegisterClassList.Find(c => c.Username == mssv.Text);
+                        var stuClassRegister = data.RegisterClassList;
+                        var isFinished = true;
+                        foreach(var c in stuClassRegister)
+                        {
+                            if(c.Status.ID == 1)
+                            {
+                                isFinished = false;
+                                break;
+                            }
+                        }
+                        if (isFinished)
+                        {
+                            var message = new Dictionary<string, object>();
+                            message.Add("Token", Model.Token);
+                            message.Add("Data", data);
+                            Engine.Execute("Giaovu/Publish", "Giaovu/ExtendClassRegisterFinish", message);
+                        }
+                        else
+                        {
+                            Engine.Execute("Base/Alert", "Error", "Chưa duyệt hết các lớp");
+                        }
+                        
                     };
                     var test = new StackLayout
                     {
@@ -145,7 +177,7 @@ namespace XamarinUser.Views.User
         {
             _pageContainer = null;
             PageContainter.PushAsync(this);
-            SetMainPage(PageContainter);
+            base.SetMainPage(PageContainter);
         }
     }
 }

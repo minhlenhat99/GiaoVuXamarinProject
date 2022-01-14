@@ -70,8 +70,9 @@ namespace XamarinUser.Views.User
         }
         protected override void SetMainPage(object page)
         {
-            Begin.PageContainter.PushAsync(this);
-            base.SetMainPage(Begin.PageContainter);
+            _pageContainer = null;
+            PageContainter.PushAsync(this);
+            base.SetMainPage(PageContainter);
         }
         
     }

@@ -83,6 +83,7 @@ namespace XamarinUser.Controllers
                 Engine.Execute("Base/Alert", "Success", "Register successfully");
                 var user = message.GetValue("User").ToObject<User>();
                 User = user;
+                RedirectToAction("ExtendClassMainPage");
             }
             return null;
         }

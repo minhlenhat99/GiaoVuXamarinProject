@@ -11,6 +11,7 @@ namespace XamarinUser.Models
         public Role Role { get; set; }
         public PersonalInfo PInfo { get; set; }
         public ContactInfo CInfo { get; set; }
+        public bool HadSendRegister { get; set; }
         public List<ExtendClass> ClassList { get; set; }
         public List<ExtendClassRegister> AllRegisterClassList { get; set; }
     }
