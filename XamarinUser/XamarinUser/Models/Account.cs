@@ -14,5 +14,6 @@ namespace XamarinUser.Models
         public bool HadSendRegister { get; set; }
         public List<ExtendClass> ClassList { get; set; }
         public List<ExtendClassRegister> AllRegisterClassList { get; set; }
+        public RegisterDuration Duration { get; set; }
     }
 }

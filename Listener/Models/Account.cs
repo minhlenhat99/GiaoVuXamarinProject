@@ -13,6 +13,7 @@ namespace Listener.Models
         private ContactInfo _cInfo;
         private List<ExtendClass> _classList;
         private List<ExtendClassRegister> _registerClassList;
+        private RegisterDuration _duration;
         public string Username { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
@@ -55,6 +56,21 @@ namespace Listener.Models
                 _registerClassList = value;
             }
         }
+        public RegisterDuration Duration { 
+            get
+            {
+                if (_duration == null) _duration = new RegisterDuration
+                {
+                    Start = DateTime.Now,
+                    End = DateTime.Now,
+                };
+                return _duration;
+            }
+            set
+            {
+                _duration = value;
+            }
+        }
         public User FindAccountInfo(List<Account> accountList)
         {
             var foundAcc = accountList.Find(s => s.Username == this.Username);
@@ -74,8 +90,12 @@ namespace Listener.Models
             user.Account.CInfo = foundAcc.CInfo;
             user.Account.ClassList = foundAcc.ClassList;
             user.Account.HadSendRegister = foundAcc.HadSendRegister;
-            if(foundAcc.Role.Id == 0)
+            user.Account.Duration = foundAcc.Duration;
+            if (foundAcc.Role.Id == 0)
+            {
                 user.Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
+                user.ListAccount = BaseController.AccountDb.GetCollection<Account>().ToList<Account>();
+            }
             return user;
         }
     }

@@ -61,6 +61,7 @@
     <Compile Include="Models\ExtendClass.cs" />
     <Compile Include="Models\ExtendClassRegister.cs" />
     <Compile Include="Models\PersonalInfo.cs" />
+    <Compile Include="Models\RegisterDuration.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />

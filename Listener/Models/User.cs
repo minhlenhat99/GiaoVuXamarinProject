@@ -20,7 +20,8 @@ namespace Listener.Models
         public string Token { get; set; }
         public DateTime LoggedTime { get; set; } = DateTime.Now;
         public int ItemSelected { get; set; } = -1;
-
+        public string studentSelected { get; set; } = "";
+        public List<Account> ListAccount { get; set; }
     }
 
     public class OnlineUsers : List<User>

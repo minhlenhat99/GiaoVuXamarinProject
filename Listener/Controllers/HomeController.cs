@@ -13,7 +13,7 @@ namespace Listener.Controllers
         {
             //Engine.Execute("Account/AddAdmin", new Models.Account
             //{
-            //    Username = "admin",
+            //    Username = "ADMIN",
             //    Password = Program.MD5Hash("0"),
             //    Role = new Models.Role
             //    {

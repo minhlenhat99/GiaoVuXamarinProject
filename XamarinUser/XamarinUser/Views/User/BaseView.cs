@@ -82,5 +82,19 @@ namespace XamarinUser.Views.User
                 AutoSize = EditorAutoSizeOption.TextChanges
             };
         }
+        protected Label NotRegisterDurationLabel()
+        {
+            var remind = new Label
+            {
+                Text = "Chưa đến thời hạn đăng ký",
+                TextColor = Color.Black,
+                FontSize = Device.GetNamedSize(NamedSize.Title, typeof(Label)),
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+            };
+            return remind;
+        }
     }
 }

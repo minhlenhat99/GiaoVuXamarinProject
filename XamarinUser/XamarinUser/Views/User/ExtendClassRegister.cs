@@ -14,7 +14,7 @@ namespace XamarinUser.Views.User
             int itemSelected = Model.ItemSelected;
             string studentId = Model.studentSelected;
 
-            this.Title = "Register Class";
+            this.Title = "Register Detail";
             Padding = new Thickness(5, 10, 5, 0);
             
             Label reasonLb = CreateLabel("Lý do");
@@ -119,7 +119,7 @@ namespace XamarinUser.Views.User
                 };
                 btnNotApprove.Clicked += async (s, e) =>
                 {
-                    await DisplayPromptAsync("Info", "Lý do không duyệt:", "Send", "Cancel").ContinueWith(
+                    await DisplayPromptAsync("Info", "Lý do không duyệt:", "OK", "Cancel").ContinueWith(
                     t =>
                     {
                         if (t.Result != null && t.Result != "")
@@ -139,8 +139,16 @@ namespace XamarinUser.Views.User
         }
         protected override void SetMainPage(object page)
         {
-            ExtendClassMainPage.PageContainter.PushAsync(this);
-            base.SetMainPage(ExtendClassMainPage.PageContainter);
+            if(Model.Account.Role.Id == 1)
+            {
+                ExtendClassMainPage.PageContainter.PushAsync(this);
+                base.SetMainPage(ExtendClassMainPage.PageContainter);
+            }
+            else
+            {
+                Giaovu.ExtendClassMainPage.PageContainter.PushAsync(this);
+                base.SetMainPage(Giaovu.ExtendClassMainPage.PageContainter);
+            }
         }
         void Publish()
         {

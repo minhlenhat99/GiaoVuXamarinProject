@@ -61,7 +61,6 @@ namespace XamarinUser.Controllers
             Engine.Execute("Base/Alert", alert, detail);
             return null;
         }
-
         public object ExtendClassRegister()
         {
             return View(User);
@@ -91,6 +90,10 @@ namespace XamarinUser.Controllers
         {
             return View(User);
         }
+        //public object GiaovuExtendClassMainPage()
+        //{
+        //    return View(User);
+        //}
         public object Begin()
         {
             return View(User);

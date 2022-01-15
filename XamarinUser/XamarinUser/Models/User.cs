@@ -20,5 +20,6 @@ namespace XamarinUser.Models
         public DateTime LoggedInTime { get; set; }
         public int ItemSelected { get; set; } = -1;
         public string studentSelected { get; set; } = "";
+        public List<Account> ListAccount { get; set; }
     }
 }

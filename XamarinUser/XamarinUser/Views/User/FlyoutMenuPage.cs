@@ -20,8 +20,6 @@ namespace XamarinUser.Views.User
             flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Quản lý đào tạo" });
             flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Điểm rèn luyện" });
             flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Điểm học tập" });
-            //flyoutPageItems.Add(new Models.FlyoutPageItem { Title = "Test" });
-
             // Tao content cho ListView
             ListView = new ListView
             {

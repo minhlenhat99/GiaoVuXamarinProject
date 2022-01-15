@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace XamarinUser.Views.User
 {
-    internal class Begin : BaseView<StackLayout>
+    internal class Begin : BaseView<Models.User, StackLayout>
     {
         protected override void RenderCore()
         {
@@ -22,7 +22,10 @@ namespace XamarinUser.Views.User
             paperOptions.Add(new Models.DetailPageItem { Title = "Bảng điểm" });
             groups.Add(new Grouping<string, Models.DetailPageItem>("Cấp giấy tờ", paperOptions));
             var classOptions = new List<Models.DetailPageItem>();
-            classOptions.Add(new Models.DetailPageItem { Title = "Đăng ký mở rộng lớp", Name = "ExtendClassMainPage" });
+            var extendClassOption = new Models.DetailPageItem { Title = "Đăng ký mở rộng lớp", Name = "ExtendClassMainPage" };
+            //if (Model.Account.Role.Id == 0) extendClassOption.Name = "GiaovuExtendClassMainPage";
+            //if (Model.Account.Role.Id == 1) extendClassOption.Name = "ExtendClassMainPage";
+            classOptions.Add(extendClassOption);
             groups.Add(new Grouping<string, Models.DetailPageItem>("Mở rộng lớp", classOptions));
 
             var optionsView = new ListView();
@@ -66,7 +69,8 @@ namespace XamarinUser.Views.User
                 var item = e.SelectedItem as Models.DetailPageItem;
                 if (item != null)
                 {
-                    Engine.Execute("User/" + item.Name);
+                    if (Model.Account.Role.Id == 0) Engine.Execute("Giaovu/" + item.Name);
+                    if (Model.Account.Role.Id == 1) Engine.Execute("User/" + item.Name);
                     optionsView.SelectedItem = null;
                 }
             };
