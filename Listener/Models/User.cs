@@ -22,6 +22,10 @@ namespace Listener.Models
         public int ItemSelected { get; set; } = -1;
         public string studentSelected { get; set; } = "";
         public List<Account> ListAccount { get; set; }
+        public void UpdateAccount()
+        {
+            Account = Controllers.BaseController.AccountDb.GetCollection<Account>().FindById(Account.Username).ToObject<Account>();
+        }
     }
 
     public class OnlineUsers : List<User>

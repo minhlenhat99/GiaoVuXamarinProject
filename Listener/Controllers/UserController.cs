@@ -43,6 +43,7 @@ namespace Listener.Controllers
                     isSuccess = true;
                 }
             }
+            user.UpdateAccount();
             RedirectToAction("Publish", "User/ChangePassword", isSuccess, cid);
             return null;
         }
@@ -58,6 +59,7 @@ namespace Listener.Controllers
                 AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
+            user.UpdateAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);
@@ -76,6 +78,7 @@ namespace Listener.Controllers
                 AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
+            user.UpdateAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);
@@ -94,6 +97,7 @@ namespace Listener.Controllers
                 AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
+            user.UpdateAccount();
             RedirectToAction("Publish", "User/ExtendClassModify", isSuccess, cid);
             return null;
         }
@@ -118,6 +122,7 @@ namespace Listener.Controllers
                     });
                 isSuccess = true;
             }
+            user.UpdateAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);

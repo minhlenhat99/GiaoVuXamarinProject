@@ -20,6 +20,7 @@ namespace Listener.Controllers
                 ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Update(classList.Username, classList);
                 isSuccess = true;
             }
+            user.UpdateAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);
@@ -42,6 +43,7 @@ namespace Listener.Controllers
                 ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Delete(stu.Username);
                 isSuccess = true;
             }
+            user.UpdateAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);

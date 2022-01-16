@@ -12,7 +12,7 @@ namespace XamarinUser.Views.User
 {
     class ExtendClassMainPage : BaseView<Models.User, StackLayout>
     {
-        static int ViewPosition { get; set; } = 0;
+        static string ViewStudent { get; set; }
         protected override void RenderCore()
         {
             int cmp1 = DateTime.Compare(DateTime.Now, Model.Account.Duration.Start);
@@ -180,10 +180,17 @@ namespace XamarinUser.Views.User
                         test.Children.Add(finish);
                         return test;
                     });
-                    registerView.Position = ViewPosition;
+                    if(ViewStudent == null || Model.Account.AllRegisterClassList.Find(s => s.Username == ViewStudent) == null)
+                    {
+                        registerView.Position = 0;
+                    }
+                    else
+                    {
+                        registerView.Position = Model.Account.AllRegisterClassList.FindIndex(s => s.Username == ViewStudent);
+                    }
                     registerView.PositionChanged += (s, e) =>
                     {
-                        ViewPosition = registerView.Position;
+                        ViewStudent = Model.Account.AllRegisterClassList[registerView.Position].Username;
                     };
                     MainContent.Children.Add(registerView);
                 }
