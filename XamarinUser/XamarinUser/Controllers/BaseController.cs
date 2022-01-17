@@ -11,7 +11,7 @@ namespace XamarinUser.Controllers
     class BaseController : Controller
     {
         protected static Models.User _user = new Models.User();
-        public Models.User User
+        public static Models.User User
         {
             get { return _user; }
             set { _user = value; }

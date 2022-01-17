@@ -90,13 +90,34 @@ namespace XamarinUser.Controllers
         {
             return View(User);
         }
-        //public object GiaovuExtendClassMainPage()
-        //{
-        //    return View(User);
-        //}
         public object Begin()
         {
             return View(User);
+        }
+        public object UpdateUser(User user)
+        {
+            User = user;
+            return null;
+        }
+        public object UpdateUserAccount(string nextUrl)
+        {
+            var message = new Dictionary<string, object>();
+            message.Add("NextUrl", nextUrl);
+            message.Add("User", User);
+            RedirectToAction("Publish", "User/UpdateUserAccount", message);
+            return null;
+        } 
+        public object UpdateUserAccountReplied(Newtonsoft.Json.Linq.JObject message)
+        {
+            var isSuccess = message.GetValue("IsSuccess").ToObject<bool>();
+            var nextUrl = message.GetValue("NextUrl").ToObject<string>();
+            if (isSuccess)
+            {
+                var user = message.GetValue("User").ToObject<User>();
+                User = user;
+            }
+            Engine.Execute(nextUrl);
+            return null;
         }
         public object Logout()
         {

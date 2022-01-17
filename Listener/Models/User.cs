@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Listener.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,16 @@ namespace Listener.Models
         public string Token { get; set; }
         public DateTime LoggedTime { get; set; } = DateTime.Now;
         public int ItemSelected { get; set; } = -1;
-        public string studentSelected { get; set; } = "";
+        public string StudentProcessing { get; set; }
         public List<Account> ListAccount { get; set; }
-        public void UpdateAccount()
+        public void UpdateUserAccount()
         {
             Account = Controllers.BaseController.AccountDb.GetCollection<Account>().FindById(Account.Username).ToObject<Account>();
+            if (Account.Role.Id == 0)
+            {
+                Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
+                ListAccount = BaseController.AccountDb.GetCollection<Account>().ToList<Account>();
+            }
         }
     }
 

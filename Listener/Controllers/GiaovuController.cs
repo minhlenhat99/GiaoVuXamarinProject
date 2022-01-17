@@ -18,9 +18,10 @@ namespace Listener.Controllers
             {
                 var classList = message.GetValue("ClassList").ToObject<ExtendClassRegister>();
                 ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Update(classList.Username, classList);
+                user.StudentProcessing = classList.Username;
                 isSuccess = true;
             }
-            user.UpdateAccount();
+            user.UpdateUserAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);
@@ -42,8 +43,9 @@ namespace Listener.Controllers
                 // Phia giao vu
                 ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Delete(stu.Username);
                 isSuccess = true;
+                user.StudentProcessing = "";
             }
-            user.UpdateAccount();
+            user.UpdateUserAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);

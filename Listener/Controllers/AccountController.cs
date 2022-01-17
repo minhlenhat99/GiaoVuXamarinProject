@@ -13,11 +13,10 @@ namespace Listener.Controllers
 
     public class AccountController : BaseController
     {
-        public object Login(Newtonsoft.Json.Linq.JObject accountLogin, string cid)
+        public object Login(Newtonsoft.Json.Linq.JObject loginInfo, string cid)
         {
-            var accountList = AccountDb.GetCollection<Account>().ToList<Account>();
-            var accLogin = accountLogin.ToObject<Account>();
-            var user = accLogin.FindAccountInfo(accountList);
+            var accLogin = loginInfo.ToObject<Account>();
+            var user = accLogin.CheckLoginInfo();
             if(user.Account.Password != null)
             {
                 user.Token = Program.MD5Hash($"{user.Account.Username}{user.LoggedTime}");

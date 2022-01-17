@@ -43,7 +43,7 @@ namespace Listener.Controllers
                     isSuccess = true;
                 }
             }
-            user.UpdateAccount();
+            user.UpdateUserAccount();
             RedirectToAction("Publish", "User/ChangePassword", isSuccess, cid);
             return null;
         }
@@ -59,7 +59,7 @@ namespace Listener.Controllers
                 AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
-            user.UpdateAccount();
+            user.UpdateUserAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);
@@ -78,7 +78,7 @@ namespace Listener.Controllers
                 AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
-            user.UpdateAccount();
+            user.UpdateUserAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);
@@ -97,7 +97,7 @@ namespace Listener.Controllers
                 AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
-            user.UpdateAccount();
+            user.UpdateUserAccount();
             RedirectToAction("Publish", "User/ExtendClassModify", isSuccess, cid);
             return null;
         }
@@ -122,11 +122,27 @@ namespace Listener.Controllers
                     });
                 isSuccess = true;
             }
-            user.UpdateAccount();
+            user.UpdateUserAccount();
             var replied = new Dictionary<string, object>();
             replied.Add("IsSuccess", isSuccess);
             replied.Add("User", user);
             RedirectToAction("Publish", "User/ExtendClassRegister", replied, cid);
+            return null;
+        }
+        public object UpdateUserAccount(Newtonsoft.Json.Linq.JObject message, string cid)
+        {
+            var isSuccess = false;
+            var user = message.GetValue("User").ToObject<User>();
+            if (user != null)
+            {
+                user.UpdateUserAccount();
+                isSuccess = true;
+            }
+            var replied = new Dictionary<string, object>();
+            replied.Add("IsSuccess", isSuccess);
+            replied.Add("User", user);
+            replied.Add("NextUrl", message.GetValue("NextUrl"));
+            RedirectToAction("Publish", "User/UpdateUserAccountReplied", replied, cid);
             return null;
         }
     }

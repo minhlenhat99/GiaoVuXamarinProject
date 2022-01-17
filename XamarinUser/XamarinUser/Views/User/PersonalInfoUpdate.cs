@@ -7,6 +7,8 @@ namespace XamarinUser.Views.User
 {
     using MinhMVC;
     using Models;
+    using System.Globalization;
+
     internal class PersonalInfoUpdate : BaseView<Models.User, StackLayout>
     {
         protected override void RenderCore()
@@ -41,7 +43,7 @@ namespace XamarinUser.Views.User
             if (Model.Account.PInfo.Name != null) nameEntry.Text = Model.Account.PInfo.Name;
             if (Model.Account.PInfo.Birthplace != null) birthplaceEntry.Text = Model.Account.PInfo.Birthplace;
             if (Model.Account.PInfo.Gender != null) genderPicker.SelectedItem = Model.Account.PInfo.Gender;
-            if (Model.Account.PInfo.Birthday != null) birthdayPicker.Date = DateTime.Parse(Model.Account.PInfo.Birthday);
+            if (Model.Account.PInfo.Birthday != null) birthdayPicker.Date = DateTime.Parse(Model.Account.PInfo.Birthday, CultureInfo.InvariantCulture);
 
             Button submit = new Button { Text = "Submit", VerticalOptions = LayoutOptions.End };
             submit.Clicked += (s, e) =>

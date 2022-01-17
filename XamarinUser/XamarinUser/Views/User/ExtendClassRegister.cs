@@ -7,16 +7,17 @@ namespace XamarinUser.Views.User
 {
     using MinhMVC;
     using Models;
-    class ExtendClassRegister : BaseView<Models.User, StackLayout>
+    class ExtendClassRegister : BaseView<Models.User, ScrollView>
     {
         protected override void RenderCore()
         {
             int itemSelected = Model.ItemSelected;
-            string studentId = Model.studentSelected;
+            string studentId = Model.StudentProcessing;
 
             this.Title = "Register Detail";
             Padding = new Thickness(5, 10, 5, 0);
-            
+            var stackLayout = new StackLayout { };
+
             Label reasonLb = CreateLabel("Lý do");
             Editor entryReason = CreateEditor("");
             Label subjectIdLb = CreateLabel("Mã học phần");
@@ -30,23 +31,23 @@ namespace XamarinUser.Views.User
             Button btnSubmit = new Button { VerticalOptions = LayoutOptions.End };
             Button btnDelete = new Button { Text = "Xóa", VerticalOptions = LayoutOptions.End };
 
-            MainContent.Children.Add(reasonLb);
-            MainContent.Children.Add(entryReason);
-            MainContent.Children.Add(subjectIdLb);
-            MainContent.Children.Add(entrySubjectId);
-            MainContent.Children.Add(subjectNameLb);
-            MainContent.Children.Add(entrySubjectName);
-            MainContent.Children.Add(newClassIdLb);
-            MainContent.Children.Add(entryNewClassId);
-            MainContent.Children.Add(oldClassIdLb);
-            MainContent.Children.Add(entryOldClassId);
+            stackLayout.Children.Add(reasonLb);
+            stackLayout.Children.Add(entryReason);
+            stackLayout.Children.Add(subjectIdLb);
+            stackLayout.Children.Add(entrySubjectId);
+            stackLayout.Children.Add(subjectNameLb);
+            stackLayout.Children.Add(entrySubjectName);
+            stackLayout.Children.Add(newClassIdLb);
+            stackLayout.Children.Add(entryNewClassId);
+            stackLayout.Children.Add(oldClassIdLb);
+            stackLayout.Children.Add(entryOldClassId);
             // Sinh vien
             if(Model.Account.Role.Id == 1)
             {
                 // Dang ky
                 if (itemSelected < 0)
                 {
-                    MainContent.Children.Add(btnSubmit);
+                    stackLayout.Children.Add(btnSubmit);
                     btnSubmit.Text = "Thêm mới";
                     btnSubmit.Clicked += (s, e) => {
                         var extendClass = new ExtendClass
@@ -71,7 +72,7 @@ namespace XamarinUser.Views.User
                     if (data.SubjectName != null) entrySubjectName.Text = data.SubjectName;
                     if (data.NewClassId != null) entryNewClassId.Text = data.NewClassId;
                     if (data.OldClassId != null) oldClassIdLb.Text = data.OldClassId;
-                    if (data.Status.ID == 0)
+                    if (!Model.Account.HadSendRegister)
                     {
                         btnDelete.Clicked += (s, e) => 
                         {
@@ -79,7 +80,7 @@ namespace XamarinUser.Views.User
                             Publish();
                             Engine.Execute("User/ExtendClassMainPage");
                         };
-                        MainContent.Children.Add(btnDelete);
+                        stackLayout.Children.Add(btnDelete);
                         btnSubmit.Text = "Thay đổi";
                         btnSubmit.Clicked += (s, e) =>
                         {
@@ -93,7 +94,7 @@ namespace XamarinUser.Views.User
                             Publish();
                             Engine.Execute("User/ExtendClassMainPage");
                         };
-                        MainContent.Children.Add(btnSubmit);
+                        stackLayout.Children.Add(btnSubmit);
                     }
                 }
             }
@@ -133,9 +134,12 @@ namespace XamarinUser.Views.User
                         }
                     });
                 };
-                MainContent.Children.Add(btnApprove);
-                MainContent.Children.Add(btnNotApprove);
+                stackLayout.Children.Add(btnApprove);
+                stackLayout.Children.Add(btnNotApprove);
+
+                
             }
+            MainContent.Content = stackLayout;
         }
         protected override void SetMainPage(object page)
         {

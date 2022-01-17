@@ -23,8 +23,6 @@ namespace XamarinUser.Views.User
             groups.Add(new Grouping<string, Models.DetailPageItem>("Cấp giấy tờ", paperOptions));
             var classOptions = new List<Models.DetailPageItem>();
             var extendClassOption = new Models.DetailPageItem { Title = "Đăng ký mở rộng lớp", Name = "ExtendClassMainPage" };
-            //if (Model.Account.Role.Id == 0) extendClassOption.Name = "GiaovuExtendClassMainPage";
-            //if (Model.Account.Role.Id == 1) extendClassOption.Name = "ExtendClassMainPage";
             classOptions.Add(extendClassOption);
             groups.Add(new Grouping<string, Models.DetailPageItem>("Mở rộng lớp", classOptions));
 
@@ -69,8 +67,8 @@ namespace XamarinUser.Views.User
                 var item = e.SelectedItem as Models.DetailPageItem;
                 if (item != null)
                 {
-                    if (Model.Account.Role.Id == 0) Engine.Execute("Giaovu/" + item.Name);
-                    if (Model.Account.Role.Id == 1) Engine.Execute("User/" + item.Name);
+                    if (Model.Account.Role.Id == 0) Engine.Execute("User/UpdateUserAccount", "Giaovu/" + item.Name);
+                    if (Model.Account.Role.Id == 1) Engine.Execute("User/UpdateUserAccount", "User/" + item.Name);
                     optionsView.SelectedItem = null;
                 }
             };

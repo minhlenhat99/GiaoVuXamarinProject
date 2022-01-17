@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XamarinUser.Controllers;
 
 namespace XamarinUser.Views.User
 {
     class ExtendClassMainPage : BaseView<Models.User, StackLayout>
     {
-        static string ViewStudent { get; set; }
+        //static string ViewStudent { get; set; }
         protected override void RenderCore()
         {
             int cmp1 = DateTime.Compare(DateTime.Now, Model.Account.Duration.Start);
@@ -25,7 +26,7 @@ namespace XamarinUser.Views.User
             {
                 var title = new Label
                 {
-                    FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+                    FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label)),
                     TextColor = Color.Black,
                     FontAttributes = FontAttributes.Bold,
                     HorizontalOptions = LayoutOptions.Center
@@ -137,7 +138,6 @@ namespace XamarinUser.Views.User
                             var index = e.SelectedItemIndex;
                             if (item != null)
                             {
-                                Model.studentSelected = mssv.Text;
                                 Model.ItemSelected = index;
                                 Engine.Execute("User/ExtendClassRegister");
                                 classRegisterList.SelectedItem = null;
@@ -180,17 +180,20 @@ namespace XamarinUser.Views.User
                         test.Children.Add(finish);
                         return test;
                     });
-                    if(ViewStudent == null || Model.Account.AllRegisterClassList.Find(s => s.Username == ViewStudent) == null)
+                    if(Model.StudentProcessing == null || Model.Account.AllRegisterClassList.Find(s => s.Username == Model.StudentProcessing) == null)
                     {
                         registerView.Position = 0;
+                        if(Model.Account.AllRegisterClassList.Count > 0) Model.StudentProcessing = Model.Account.AllRegisterClassList[registerView.Position].Username;
                     }
                     else
                     {
-                        registerView.Position = Model.Account.AllRegisterClassList.FindIndex(s => s.Username == ViewStudent);
+                        registerView.Position = Model.Account.AllRegisterClassList.FindIndex(s => s.Username == Model.StudentProcessing);
                     }
                     registerView.PositionChanged += (s, e) =>
                     {
-                        ViewStudent = Model.Account.AllRegisterClassList[registerView.Position].Username;
+                        Model.StudentProcessing = Model.Account.AllRegisterClassList[registerView.Position].Username;
+                        //Engine.Execute("User/UpdateUser", Model);
+                        BaseController.User = Model;
                     };
                     MainContent.Children.Add(registerView);
                 }

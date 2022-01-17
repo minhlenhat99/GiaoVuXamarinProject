@@ -71,9 +71,36 @@ namespace Listener.Models
                 _duration = value;
             }
         }
-        public User FindAccountInfo(List<Account> accountList)
+        //public User FindAccountInfo(List<Account> accountList)
+        //{
+        //    var foundAcc = accountList.Find(s => s.Username == this.Username);
+        //    var user = new User();
+        //    if (foundAcc == null)
+        //    {
+        //        return user;
+        //    }
+        //    user.Account.Username = this.Username;
+        //    if (foundAcc.Password != this.Password)
+        //    {
+        //        return user;
+        //    }
+        //    user.Account.Password = foundAcc.Password;
+        //    user.Account.Role = foundAcc.Role;
+        //    user.Account.PInfo = foundAcc.PInfo;
+        //    user.Account.CInfo = foundAcc.CInfo;
+        //    user.Account.ClassList = foundAcc.ClassList;
+        //    user.Account.HadSendRegister = foundAcc.HadSendRegister;
+        //    user.Account.Duration = foundAcc.Duration;
+        //    if (foundAcc.Role.Id == 0)
+        //    {
+        //        user.Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
+        //        user.ListAccount = BaseController.AccountDb.GetCollection<Account>().ToList<Account>();
+        //    }
+        //    return user;
+        //}
+        public User CheckLoginInfo()
         {
-            var foundAcc = accountList.Find(s => s.Username == this.Username);
+            var foundAcc = BaseController.AccountDb.GetCollection<Account>().ToList<Account>().Find(s => s.Username == this.Username);
             var user = new User();
             if (foundAcc == null)
             {
@@ -84,13 +111,7 @@ namespace Listener.Models
             {
                 return user;
             }
-            user.Account.Password = foundAcc.Password;
-            user.Account.Role = foundAcc.Role;
-            user.Account.PInfo = foundAcc.PInfo;
-            user.Account.CInfo = foundAcc.CInfo;
-            user.Account.ClassList = foundAcc.ClassList;
-            user.Account.HadSendRegister = foundAcc.HadSendRegister;
-            user.Account.Duration = foundAcc.Duration;
+            user.Account = foundAcc;
             if (foundAcc.Role.Id == 0)
             {
                 user.Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();

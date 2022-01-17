@@ -42,8 +42,8 @@ namespace XamarinUser.Views.Giaovu
                 var item = e.SelectedItem as Models.DetailPageItem;
                 if (item != null)
                 {
-                    if (item.Title == "Danh sách đăng ký") Engine.Execute("User/" + item.Name);
-                    else Engine.Execute("Giaovu/" + item.Name);
+                    if (item.Title == "Danh sách đăng ký") Engine.Execute("User/UpdateUserAccount", "User/" + item.Name);
+                    else Engine.Execute("User/UpdateUserAccount", "Giaovu/" + item.Name);
                     listView.SelectedItem = null;
                 }
             };
