@@ -17,12 +17,34 @@ namespace Listener.Controllers
         {
             var accLogin = loginInfo.ToObject<Account>();
             var user = accLogin.CheckLoginInfo();
-            if(user.Account.Password != null)
+            var message = new Dictionary<string, object>();
+            if (user.Account.Password != null)
             {
                 user.Token = Program.MD5Hash($"{user.Account.Username}{user.LoggedTime}");
                 UserController.CreateUser(user);
+                var subjectList = SubjectDb.GetCollection<Subject>().ToList<Subject>();
+                subjectList.Add(new Subject
+                {
+                    ID = "ET4060",
+                    Name = "Phân tích và thiết kế hướng đối tượng",
+                    RequiredTN = false
+                });
+                subjectList.Add(new Subject
+                {
+                    ID = "ET4430",
+                    Name = "Lập trình nâng cao",
+                    RequiredTN = false
+                });
+                subjectList.Add(new Subject
+                {
+                    ID = "ET4070",
+                    Name = "Cơ sở truyền số liệu",
+                    RequiredTN = true
+                });
+                message.Add("SubjectList", subjectList);
             }
-            RedirectToAction("Publish", "Account/Login", user, cid);
+            message.Add("User", user);
+            RedirectToAction("Publish", "Account/Login", message, cid);
             return null;
         }
         public object CreateAcc(Newtonsoft.Json.Linq.JObject account, string cid)

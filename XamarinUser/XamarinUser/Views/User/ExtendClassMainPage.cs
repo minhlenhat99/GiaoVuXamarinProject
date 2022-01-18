@@ -42,15 +42,7 @@ namespace XamarinUser.Views.User
                     classRegisterView.ItemTemplate = new DataTemplate(() =>
                     {
                         TextCell textCell = new TextCell();
-                        textCell.SetBinding(TextCell.TextProperty, new MultiBinding
-                        {
-                            Bindings = new Collection<BindingBase>
-                        {
-                            new Binding("SubjectId"),
-                            new Binding("SubjectName")
-                        },
-                            StringFormat = "{0} - {1}"
-                        });
+                        textCell.SetBinding(TextCell.TextProperty, "Subject");
                         textCell.TextColor = Color.Black;
                         textCell.SetBinding(TextCell.DetailProperty, "Status.Value");
                         textCell.SetBinding(TextCell.DetailColorProperty, "Status.Color");
@@ -97,7 +89,6 @@ namespace XamarinUser.Views.User
                         add.IsEnabled = false;
                         register.IsEnabled = false;
                     }
-                    
                 }
                 // Nhan vien giao vu
                 else
@@ -118,15 +109,7 @@ namespace XamarinUser.Views.User
                         classRegisterList.ItemTemplate = new DataTemplate(() =>
                         {
                             TextCell textCell = new TextCell();
-                            textCell.SetBinding(TextCell.TextProperty, new MultiBinding
-                            {
-                                Bindings = new Collection<BindingBase>
-                            {
-                                new Binding("SubjectId"),
-                                new Binding("SubjectName")
-                            },
-                                StringFormat = "{0} - {1}"
-                            });
+                            textCell.SetBinding(TextCell.TextProperty, "Subject");
                             textCell.TextColor = Color.Black;
                             textCell.SetBinding(TextCell.DetailProperty, "Status.Value");
                             textCell.SetBinding(TextCell.DetailColorProperty, "Status.Color");

@@ -66,9 +66,12 @@ namespace Listener.Controllers
                 {
                     if(isNewRegisterDuration) a.ClassList.Clear();
                     a.Duration = duration;
+                    a.HadSendRegister = false;
                     AccountDb.GetCollection<Account>().Update(a.Username, a);
-                    isSuccess = true;
                 }
+                if (isNewRegisterDuration)
+                    BaseController.ExtendClassGiaoVuDb.Clear();
+                isSuccess = true;
                 var replied = new Dictionary<string, object>();
                 replied.Add("IsSuccess", isSuccess);
                 replied.Add("User", user);

@@ -19,7 +19,7 @@ namespace XamarinUser.Views.Giaovu
             Title = "Set Register Duration";
 
             var startLb = CreateLabel("Ngày bắt đầu");
-            var startBtn = new Button { Text =start.ToString("dd/MM/yyyy  hh:mm tt"), BackgroundColor = Color.White };
+            var startBtn = new Button { Text = start.ToString("dd/MM/yyyy  hh:mm tt"), BackgroundColor = Color.White };
             var endLb = CreateLabel("Ngày kết thúc");
             var endBtn = new Button { Text = end.ToString("dd/MM/yyyy  hh:mm tt"), BackgroundColor = Color.White };
             var setBtn = new Button { Text = "Đặt thời hạn", VerticalOptions = LayoutOptions.End };

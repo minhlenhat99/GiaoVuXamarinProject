@@ -18,6 +18,7 @@ namespace Listener.Controllers
         // Co so du lieu luu tru Account trong may
         static BsonData.DataBase _accountDb;
         static BsonData.DataBase _extendClassGiaoVuDb;
+        static BsonData.DataBase _subjectDb;
         public static BsonData.DataBase AccountDb
         {
             get
@@ -36,6 +37,17 @@ namespace Listener.Controllers
                 if (_extendClassGiaoVuDb == null)
                 {
                     _extendClassGiaoVuDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "ExtendClassGiaoVuDb");
+                }
+                return _extendClassGiaoVuDb;
+            }
+        }
+        public static BsonData.DataBase SubjectDb
+        {
+            get
+            {
+                if (_subjectDb == null)
+                {
+                    _subjectDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "SubjectDb");
                 }
                 return _extendClassGiaoVuDb;
             }

@@ -9,10 +9,10 @@ namespace XamarinUser.Models
     {
         private Status _status;
         public string Reason { get; set; }
-        public string SubjectId { get; set; }
-        public string SubjectName { get; set; }
+        public string Subject { get; set; }
         public string NewClassId { get; set; }
         public string OldClassId { get; set; }
+        public string TNClassId { get; set; }
         public Status Status 
         { 
             get 

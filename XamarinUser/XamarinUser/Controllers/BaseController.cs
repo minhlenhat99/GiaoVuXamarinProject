@@ -16,6 +16,7 @@ namespace XamarinUser.Controllers
             get { return _user; }
             set { _user = value; }
         }
+        public static List<Models.Subject> SubjectList { get; set; }
         static MqttClient _client;
         static string _topic = "129311";
         static System.Net.IPAddress _hostIp;

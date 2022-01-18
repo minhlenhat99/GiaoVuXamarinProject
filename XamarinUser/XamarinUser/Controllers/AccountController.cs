@@ -17,7 +17,7 @@ namespace XamarinUser.Controllers
         }
         public object Login(Newtonsoft.Json.Linq.JObject message)
         {
-            var user = message.ToObject<User>();
+            var user = message.GetValue("User").ToObject<User>();
             var token = user.Token;
             if (token == null)
             {
@@ -27,6 +27,7 @@ namespace XamarinUser.Controllers
             else
             {
                 User = user;
+                SubjectList = message.GetValue("SubjectList").ToObject<List<Subject>>();
                 Engine.Execute("User/Begin");
             }
             return null;

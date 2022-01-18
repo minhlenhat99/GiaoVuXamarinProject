@@ -63,6 +63,7 @@
     <Compile Include="Models\PersonalInfo.cs" />
     <Compile Include="Models\RegisterDuration.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
