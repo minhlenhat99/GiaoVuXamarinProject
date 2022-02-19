@@ -11,8 +11,10 @@ namespace XamarinUser.Views.Account
     {
         protected override void RenderCore()
         {
+
             this.Title = "Login";
             Padding = new Thickness(5, 0, 5, 0);
+
             Entry entryID = new Entry { Placeholder = "Username" };
             Entry entryPassword = new Entry { Placeholder = "Password" };
             entryPassword.IsPassword = true;
@@ -46,14 +48,8 @@ namespace XamarinUser.Views.Account
                 }
                 else
                 {
-                    Engine.Execute("Account/Publish", "Account/Login",
-                    new Models.Account
-                    {
-                        Username = id,
-                        Password = App.MD5Hash(pass)
-                    });
+                    Engine.Execute("Account/Publish", "Account/Login", new Models.Account { Username = id, Password = Models.MD5.MD5Hash(pass) });
                 }
-                
             };
             Button btnCreateNewAcc = new Button { Text = "Create New Account" };
             btnCreateNewAcc.Clicked += (s, e) =>
@@ -74,7 +70,6 @@ namespace XamarinUser.Views.Account
         }
     }
 
-    //class CreateAcc : BaseView<List<Models.Account>, StackLayout>
     class CreateAcc : BaseView<StackLayout>
     {
         protected override void RenderCore()
@@ -117,10 +112,9 @@ namespace XamarinUser.Views.Account
                     new Models.Account
                     {
                         Username = id,
-                        Password = App.MD5Hash(pass)
+                        Password = Models.MD5.MD5Hash(pass)
                     });
                 }
-               
             };
             MainContent.Children.Add(entryID);
             MainContent.Children.Add(entryPassword);

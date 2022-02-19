@@ -15,12 +15,12 @@ namespace XamarinUser.Views.User
         static ObservableCollection<string> subjectData;
         protected override void RenderCore()
         {
-            int itemSelected = Model.ItemSelected;
+            int itemSelected = Model.ItemProcessing;
             string studentId = Model.StudentProcessing;
             if(subjectData == null)
             {
                 subjectData = new ObservableCollection<string>();
-                foreach (var s in Controllers.BaseController.SubjectList)
+                foreach (var s in DB.SubjectList)
                 {
                     string data = $"{s.ID} {s.Name}";
                     if (s.RequiredTN) data += " (TN)";
@@ -104,12 +104,12 @@ namespace XamarinUser.Views.User
                     stackLayout.Children.Add(btnSubmit);
                     btnSubmit.Text = "Thêm mới";
                     btnSubmit.Clicked += (s, e) => {
-                        var extendClass = new ExtendClass
-                        {
-                            Subject = entrySubject.Text,
-                            NewClassId = entryNewClassId.Text,
-                            TNClassId = entryTNClassID.Text,
-                        };
+                        var extendClass = new ExtendClass();
+                        if (reasonPicker.SelectedItem != null) extendClass.Reason = reasonPicker.SelectedItem.ToString();
+                        if (entrySubject.Text != null) extendClass.Subject = entrySubject.Text;
+                        if (entryNewClassId.Text != null) extendClass.NewClassId = entryNewClassId.Text;
+                        if (entryTNClassID.Text != null) extendClass.TNClassId = entryTNClassID.Text;
+                        if (entryOldClassId.Text != null) extendClass.OldClassId = entryOldClassId.Text;
                         extendClass.Status.ID = 0;
                         Model.Account.ClassList.Add(extendClass);
                         Publish();
@@ -128,7 +128,7 @@ namespace XamarinUser.Views.User
                         suggestionList.IsVisible = false;
                     }
                     if (data.NewClassId != null) entryNewClassId.Text = data.NewClassId;
-                    if (data.OldClassId != null) oldClassIdLb.Text = data.OldClassId;
+                    if (data.OldClassId != null) entryOldClassId.Text = data.OldClassId;
                     if (data.TNClassId != null) { entryTNClassID.Text = data.TNClassId; entryTNClassID.IsEnabled = true; }
                     if (!Model.Account.HadSendRegister)
                     {
@@ -142,12 +142,12 @@ namespace XamarinUser.Views.User
                         btnSubmit.Text = "Thay đổi";
                         btnSubmit.Clicked += (s, e) =>
                         {
-                            var extendClass = new ExtendClass
-                            {
-                                Subject = entrySubject.Text,
-                                NewClassId = entryNewClassId.Text,
-                                TNClassId = entryTNClassID.Text,
-                            };
+                            var extendClass = new ExtendClass();
+                            if (reasonPicker.SelectedItem != null) extendClass.Reason = reasonPicker.SelectedItem.ToString();
+                            if (entrySubject.Text != null) extendClass.Subject = entrySubject.Text;
+                            if (entryNewClassId.Text != null) extendClass.NewClassId = entryNewClassId.Text;
+                            if (entryTNClassID.Text != null) extendClass.TNClassId = entryTNClassID.Text;
+                            if (entryOldClassId.Text != null) extendClass.OldClassId = entryOldClassId.Text;
                             Model.Account.ClassList[itemSelected] = extendClass;
                             Publish();
                             Engine.Execute("User/ExtendClassMainPage");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SE = System.Environment;
 
 namespace Listener.Models
 {
@@ -13,7 +14,7 @@ namespace Listener.Models
         private ContactInfo _cInfo;
         private List<ExtendClass> _classList;
         private List<ExtendClassRegister> _registerClassList;
-        private RegisterDuration _duration;
+        private static RegisterDuration _duration;
         public string Username { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
@@ -48,7 +49,7 @@ namespace Listener.Models
             {
                 if(Role != null)
                     if (Role.Id == 0)
-                        _registerClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
+                        _registerClassList = DB.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
                 return _registerClassList;
             }
             set
@@ -56,7 +57,8 @@ namespace Listener.Models
                 _registerClassList = value;
             }
         }
-        public RegisterDuration Duration { 
+        public RegisterDuration Duration
+        {
             get
             {
                 if (_duration == null) _duration = new RegisterDuration
@@ -71,53 +73,45 @@ namespace Listener.Models
                 _duration = value;
             }
         }
-        //public User FindAccountInfo(List<Account> accountList)
-        //{
-        //    var foundAcc = accountList.Find(s => s.Username == this.Username);
-        //    var user = new User();
-        //    if (foundAcc == null)
-        //    {
-        //        return user;
-        //    }
-        //    user.Account.Username = this.Username;
-        //    if (foundAcc.Password != this.Password)
-        //    {
-        //        return user;
-        //    }
-        //    user.Account.Password = foundAcc.Password;
-        //    user.Account.Role = foundAcc.Role;
-        //    user.Account.PInfo = foundAcc.PInfo;
-        //    user.Account.CInfo = foundAcc.CInfo;
-        //    user.Account.ClassList = foundAcc.ClassList;
-        //    user.Account.HadSendRegister = foundAcc.HadSendRegister;
-        //    user.Account.Duration = foundAcc.Duration;
-        //    if (foundAcc.Role.Id == 0)
-        //    {
-        //        user.Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
-        //        user.ListAccount = BaseController.AccountDb.GetCollection<Account>().ToList<Account>();
-        //    }
-        //    return user;
-        //}
-        public User CheckLoginInfo()
+    }
+
+    partial class DB
+    {
+        static BsonData.DataBase _accountDb;
+        static BsonData.DataBase _extendClassGiaoVuDb;
+        static BsonData.DataBase _subjectDb;
+        public static BsonData.DataBase AccountDb
         {
-            var foundAcc = BaseController.AccountDb.GetCollection<Account>().ToList<Account>().Find(s => s.Username == this.Username);
-            var user = new User();
-            if (foundAcc == null)
+            get
             {
-                return user;
+                if (_accountDb == null)
+                {
+                    _accountDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "AccountDb");
+                }
+                return _accountDb;
             }
-            user.Account.Username = this.Username;
-            if (foundAcc.Password != this.Password)
+        }
+        public static BsonData.DataBase ExtendClassGiaoVuDb
+        {
+            get
             {
-                return user;
+                if (_extendClassGiaoVuDb == null)
+                {
+                    _extendClassGiaoVuDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "ExtendClassGiaoVuDb");
+                }
+                return _extendClassGiaoVuDb;
             }
-            user.Account = foundAcc;
-            if (foundAcc.Role.Id == 0)
+        }
+        public static BsonData.DataBase SubjectDb
+        {
+            get
             {
-                user.Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
-                user.ListAccount = BaseController.AccountDb.GetCollection<Account>().ToList<Account>();
+                if (_subjectDb == null)
+                {
+                    _subjectDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "SubjectDb");
+                }
+                return _subjectDb;
             }
-            return user;
         }
     }
 }

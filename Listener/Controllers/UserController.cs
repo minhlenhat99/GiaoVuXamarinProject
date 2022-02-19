@@ -39,7 +39,7 @@ namespace Listener.Controllers
                 {
                     var newPassword = (string)message.GetValue("NewPass");
                     user.Account.Password = newPassword;
-                    AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
+                    DB.AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                     isSuccess = true;
                 }
             }
@@ -56,7 +56,7 @@ namespace Listener.Controllers
             if (user != null)
             {
                 user.Account.PInfo = info;
-                AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
+                DB.AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
             user.UpdateUserAccount();
@@ -75,7 +75,7 @@ namespace Listener.Controllers
             if (user != null)
             {
                 user.Account.CInfo = info;
-                AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
+                DB.AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
             user.UpdateUserAccount();
@@ -94,7 +94,7 @@ namespace Listener.Controllers
             if (user != null)
             {
                 user.Account.ClassList = registerClass;
-                AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
+                DB.AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
                 isSuccess = true;
             }
             user.UpdateUserAccount();
@@ -113,8 +113,8 @@ namespace Listener.Controllers
                     c.Status.ID = 1;
                 }
                 user.Account.HadSendRegister = true;
-                AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
-                ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Insert(user.Account.Username,
+                DB.AccountDb.GetCollection<Account>().Update(user.Account.Username, user.Account);
+                DB.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Insert(user.Account.Username,
                     new ExtendClassRegister
                     {
                         Username = user.Account.Username,

@@ -25,11 +25,23 @@ namespace Listener.Models
         public List<Account> ListAccount { get; set; }
         public void UpdateUserAccount()
         {
-            Account = Controllers.BaseController.AccountDb.GetCollection<Account>().FindById(Account.Username).ToObject<Account>();
+            Account = DB.AccountDb.GetCollection<Account>().FindById(Account.Username).ToObject<Account>();
             if (Account.Role.Id == 0)
             {
-                Account.AllRegisterClassList = BaseController.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
-                ListAccount = BaseController.AccountDb.GetCollection<Account>().ToList<Account>();
+                Account.AllRegisterClassList = DB.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().ToList<ExtendClassRegister>();
+                ListAccount = DB.AccountDb.GetCollection<Account>().ToList<Account>();
+            }
+        }
+        public void Login(string username, string password)
+        {
+            var foundAcc = DB.AccountDb.GetCollection<Account>().ToList<Account>().Find(a => a.Username == username);
+            if(foundAcc != null)
+            {
+                this.Account.Username = username;
+                if (foundAcc.Password == password)
+                {
+                    this.Account = foundAcc;
+                }
             }
         }
     }

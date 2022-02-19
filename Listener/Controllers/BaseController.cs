@@ -15,43 +15,7 @@ namespace Listener.Controllers
         static MqttClient _client;
         static string _topic = "129311";
         static System.Net.IPAddress _hostIp;
-        // Co so du lieu luu tru Account trong may
-        static BsonData.DataBase _accountDb;
-        static BsonData.DataBase _extendClassGiaoVuDb;
-        static BsonData.DataBase _subjectDb;
-        public static BsonData.DataBase AccountDb
-        {
-            get
-            {
-                if (_accountDb == null)
-                {
-                    _accountDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "AccountDb");
-                }
-                return _accountDb;
-            }
-        }
-        public static BsonData.DataBase ExtendClassGiaoVuDb
-        {
-            get
-            {
-                if (_extendClassGiaoVuDb == null)
-                {
-                    _extendClassGiaoVuDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "ExtendClassGiaoVuDb");
-                }
-                return _extendClassGiaoVuDb;
-            }
-        }
-        public static BsonData.DataBase SubjectDb
-        {
-            get
-            {
-                if (_subjectDb == null)
-                {
-                    _subjectDb = new BsonData.DataBase(SE.GetFolderPath(SE.SpecialFolder.Personal), "SubjectDb");
-                }
-                return _extendClassGiaoVuDb;
-            }
-        }
+        
         protected void Subcribe()
         {
             _client.Subscribe(new string[] { _topic }, new byte[] { 0 });
@@ -99,7 +63,6 @@ namespace Listener.Controllers
             var s = Newtonsoft.Json.Linq.JObject.FromObject(obj).ToString();
             var msg = Encoding.UTF8.GetBytes(s);
             _client.Publish(_topic + "/" + cid, msg);
-            // 
             return null;
         }
         public object Publish(string sUrl, string cid)

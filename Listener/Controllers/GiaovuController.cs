@@ -17,7 +17,7 @@ namespace Listener.Controllers
             if(user != null)
             {
                 var classList = message.GetValue("ClassList").ToObject<ExtendClassRegister>();
-                ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Update(classList.Username, classList);
+                DB.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Update(classList.Username, classList);
                 user.StudentProcessing = classList.Username;
                 isSuccess = true;
             }
@@ -37,11 +37,11 @@ namespace Listener.Controllers
             {
                 var data = message.GetValue("Data").ToObject<ExtendClassRegister>();
                 // Phia sinh vien
-                var stu = AccountDb.GetCollection<Account>().FindById(data.Username).ToObject<Account>();
+                var stu = DB.AccountDb.GetCollection<Account>().FindById(data.Username).ToObject<Account>();
                 stu.ClassList = data.RegisterClassList;
-                AccountDb.GetCollection<Account>().Update(stu.Username, stu);
+                DB.AccountDb.GetCollection<Account>().Update(stu.Username, stu);
                 // Phia giao vu
-                ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Delete(stu.Username);
+                DB.ExtendClassGiaoVuDb.GetCollection<ExtendClassRegister>().Delete(stu.Username);
                 isSuccess = true;
                 user.StudentProcessing = "";
             }
@@ -54,6 +54,7 @@ namespace Listener.Controllers
         }
         public object SetRegisterDuration(Newtonsoft.Json.Linq.JObject message, string cid)
         {
+            var accountList = DB.AccountDb.GetCollection<Account>().ToList<Account>();
             var isSuccess = false;
             var token = message.GetValue("Token").ToString();
             var user = db.Find(token);
@@ -62,15 +63,17 @@ namespace Listener.Controllers
                 var duration = message.GetValue("Duration").ToObject<RegisterDuration>();
                 var isNewRegisterDuration = message.GetValue("IsNewRegisterDuration").ToObject<bool>();
                 user.Account.Duration = duration;
-                foreach (var a in AccountDb.GetCollection<Account>().ToList<Account>())
+                foreach (var a in accountList)
                 {
-                    if(isNewRegisterDuration) a.ClassList.Clear();
+                    if (isNewRegisterDuration)
+                    {
+                        a.ClassList.Clear();
+                        a.HadSendRegister = false;
+                    }
                     a.Duration = duration;
-                    a.HadSendRegister = false;
-                    AccountDb.GetCollection<Account>().Update(a.Username, a);
+                    DB.AccountDb.GetCollection<Account>().Update(a.Username, a);
                 }
-                if (isNewRegisterDuration)
-                    BaseController.ExtendClassGiaoVuDb.Clear();
+                if (isNewRegisterDuration) DB.ExtendClassGiaoVuDb.Clear();
                 isSuccess = true;
                 var replied = new Dictionary<string, object>();
                 replied.Add("IsSuccess", isSuccess);
@@ -83,12 +86,16 @@ namespace Listener.Controllers
         {
             var hadSendRegister = false;
             var mssv = message.ToObject<string>();
-            var foundAcc = AccountDb.GetCollection<Account>().ToList<Account>().Find(a => a.Username == mssv);
+            var foundAcc = DB.AccountDb.GetCollection<Account>().ToList<Account>().Find(a => a.Username == mssv);
             if (foundAcc.HadSendRegister)
             {
                 hadSendRegister = true;
                 foundAcc.HadSendRegister = false;
-                AccountDb.GetCollection<Account>().Update(foundAcc.Username, foundAcc);
+                for(int i = 0; i < foundAcc.ClassList.Count; i++)
+                {
+                    foundAcc.ClassList[i].Status.ID = 0;
+                }
+                DB.AccountDb.GetCollection<Account>().Update(foundAcc.Username, foundAcc);
             }
             RedirectToAction("Publish", "Giaovu/AllowRegisterAgain", hadSendRegister, cid);
             return null;

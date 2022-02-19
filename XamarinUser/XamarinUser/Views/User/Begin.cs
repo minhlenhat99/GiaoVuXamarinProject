@@ -16,11 +16,13 @@ namespace XamarinUser.Views.User
             
             var groups = new ObservableCollection<Grouping<string, Models.DetailPageItem>>();
 
+            // Chuc nang dang ky nhan giay to
             var paperOptions = new List<Models.DetailPageItem>();
             paperOptions.Add(new Models.DetailPageItem { Title = "Chứng nhận sinh viên" });
             paperOptions.Add(new Models.DetailPageItem { Title = "Giấy giới thiệu" });
             paperOptions.Add(new Models.DetailPageItem { Title = "Bảng điểm" });
             groups.Add(new Grouping<string, Models.DetailPageItem>("Cấp giấy tờ", paperOptions));
+            // Chuc nang dang ky lop
             var classOptions = new List<Models.DetailPageItem>();
             var extendClassOption = new Models.DetailPageItem { Title = "Đăng ký mở rộng lớp", Name = "ExtendClassMainPage" };
             classOptions.Add(extendClassOption);
@@ -61,7 +63,6 @@ namespace XamarinUser.Views.User
                     View = label
                 };
             });
-
             optionsView.ItemSelected += (s, e) =>
             {
                 var item = e.SelectedItem as Models.DetailPageItem;

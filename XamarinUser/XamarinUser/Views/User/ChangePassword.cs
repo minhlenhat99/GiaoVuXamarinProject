@@ -46,8 +46,8 @@ namespace XamarinUser.Views.User
                 Engine.Execute("User/Publish", "User/ChangePassword", new
                 {
                     Token = Model.Token,
-                    OldPass = App.MD5Hash(entryOldPass.Text),
-                    NewPass = App.MD5Hash(entryNewPass.Text)
+                    OldPass = Models.MD5.MD5Hash(entryOldPass.Text),
+                    NewPass = Models.MD5.MD5Hash(entryNewPass.Text)
                 });
             };
             MainContent.Children.Add(entryOldPass);

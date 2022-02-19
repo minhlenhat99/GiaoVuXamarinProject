@@ -15,42 +15,27 @@ namespace Listener.Controllers
     {
         public object Login(Newtonsoft.Json.Linq.JObject loginInfo, string cid)
         {
-            var accLogin = loginInfo.ToObject<Account>();
-            var user = accLogin.CheckLoginInfo();
-            var message = new Dictionary<string, object>();
+            // Lay thong tin dang nhap
+            var login = loginInfo.ToObject<Account>();
+            // Tim kiem thong tin dang nhap
+            var user = new User();
+            user.Login(login.Username, login.Password);
             if (user.Account.Password != null)
             {
                 user.Token = Program.MD5Hash($"{user.Account.Username}{user.LoggedTime}");
                 UserController.CreateUser(user);
-                var subjectList = SubjectDb.GetCollection<Subject>().ToList<Subject>();
-                subjectList.Add(new Subject
-                {
-                    ID = "ET4060",
-                    Name = "Phân tích và thiết kế hướng đối tượng",
-                    RequiredTN = false
-                });
-                subjectList.Add(new Subject
-                {
-                    ID = "ET4430",
-                    Name = "Lập trình nâng cao",
-                    RequiredTN = false
-                });
-                subjectList.Add(new Subject
-                {
-                    ID = "ET4070",
-                    Name = "Cơ sở truyền số liệu",
-                    RequiredTN = true
-                });
-                message.Add("SubjectList", subjectList);
             }
+            // Gui lai thong tin dang nhap
+            var message = new Dictionary<string, object>();
             message.Add("User", user);
+            message.Add("SubjectList", DB.SubjectDb.GetCollection<Subject>().ToList<Subject>());
             RedirectToAction("Publish", "Account/Login", message, cid);
             return null;
         }
         public object CreateAcc(Newtonsoft.Json.Linq.JObject account, string cid)
         {
             bool createSuccess = false;
-            var db = AccountDb.GetCollection("Account");
+            var db = DB.AccountDb.GetCollection("Account");
             var acc = new Account
             {
                 Username = (string)account.GetValue("Username"),
@@ -65,10 +50,9 @@ namespace Listener.Controllers
         }
         public object AddAdmin(Account account)
         {
-            var db = AccountDb.GetCollection<Account>();
+            var db = DB.AccountDb.GetCollection<Account>();
             db.Insert(account.Username, account);
             return null;
         }
-
     }
 }

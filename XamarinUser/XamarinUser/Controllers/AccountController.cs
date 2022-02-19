@@ -27,7 +27,7 @@ namespace XamarinUser.Controllers
             else
             {
                 User = user;
-                SubjectList = message.GetValue("SubjectList").ToObject<List<Subject>>();
+                DB.SubjectList = message.GetValue("SubjectList").ToObject<List<Subject>>();
                 Engine.Execute("User/Begin");
             }
             return null;

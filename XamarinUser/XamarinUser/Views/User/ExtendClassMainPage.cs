@@ -54,10 +54,10 @@ namespace XamarinUser.Views.User
                         var index = e.SelectedItemIndex;
                         if (item != null)
                         {
-                            Model.ItemSelected = index;
+                            Model.ItemProcessing = index;
                             Engine.Execute("User/ExtendClassRegister");
                             classRegisterView.SelectedItem = null;
-                            Model.ItemSelected = -1;
+                            Model.ItemProcessing = -1;
                         }
                     };
                     MainContent.Children.Add(classRegisterView);
@@ -121,10 +121,10 @@ namespace XamarinUser.Views.User
                             var index = e.SelectedItemIndex;
                             if (item != null)
                             {
-                                Model.ItemSelected = index;
+                                Model.ItemProcessing = index;
                                 Engine.Execute("User/ExtendClassRegister");
                                 classRegisterList.SelectedItem = null;
-                                Model.ItemSelected = -1;
+                                Model.ItemProcessing = -1;
                             }
                         };
                         Button finish = new Button { Text = "Hoàn thành" };
